@@ -1,26 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Row, Col, Button } from "reactstrap";
+import { API_URL1 } from "../Api/api";
+import axios from "axios";
+const Leave = (props) => {
+  const [leaveData, setLeaveData] = useState([]);
 
-const Leave = () => {
-  // Sample data for the table
-  const leaveData = [
-    {
-      type: "Vacation",
-      days: 5,
-      status: "Approved",
-      detail: "Enjoying time off",
-    },
-    // Add more rows as needed
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(API_URL1);
+        setLeaveData(response.data); // Update this line
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
 
+    fetchData();
+  }, []);
+  const createStudent = (e) => {
+    e.preventDefault();
+    axios.post(API_URL1, leaveData).then(() => {
+      props.resetState();
+      props.toggle();
+    });
+  };
   return (
     <>
       <div>
         <Button className="ms-5 mt-5 px-5 py-3 fs-3">Apply For Leave</Button>
         <Row>
-          <h2 className="col-md-6 m-auto text-center mt-5 mb-4 ">Name</h2>
-
-          <Col md={8} className="m-auto">
+          <Col md={8} className="m-auto mt-5">
             <Table>
               <thead>
                 <tr>
@@ -31,14 +40,22 @@ const Leave = () => {
                 </tr>
               </thead>
               <tbody>
-                {leaveData.map((data, index) => (
-                  <tr key={index}>
-                    <td>{data.type}</td>
-                    <td>{data.days}</td>
-                    <td>{data.status}</td>
-                    <td>{data.detail}</td>
+                {!leaveData || leaveData.length <= 0 ? (
+                  <tr>
+                    <td colSpan="6" align="center">
+                      <b>Ops, no one here yet</b>
+                    </td>
                   </tr>
-                ))}
+                ) : (
+                  leaveData.map((leaveData) => (
+                    <tr key={leaveData.pk}>
+                      <td>{leaveData.start_date}</td>
+                      <td>{leaveData.end_date}</td>
+                      <td>{leaveData.leave_type}</td>
+                      <td>{leaveData.reason}</td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </Table>
           </Col>

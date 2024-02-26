@@ -3,19 +3,18 @@ import axios from "axios";
 import { Col, Container, Row } from "reactstrap";
 import { API_URL } from "../Api/api";
 
-const Home = () => {
+const Home = (props) => {
   const [employees, setEmployees] = useState([]);
+  const [applyLeave, setApplyLeave] = useState([]);
 
   useEffect(() => {
     getEmployees();
   }, []); // Empty dependency array ensures the effect runs once on mount
 
-  const getEmployees = () => {
-    axios.get(API_URL).then((res) => {
-      setEmployees(res.data);
-    });
+  const getEmployees = async () => {
+    const res = await axios.get(API_URL);
+    setEmployees(res.data);
   };
-
   const resetState = () => {
     getEmployees();
   };
@@ -23,7 +22,7 @@ const Home = () => {
   return (
     <>
       <Container style={{ marginTop: "20px" }}>
-        <Row>
+        {/* <Row>
           <Col>
             <StudentList employees={employees} resetState={resetState} />
           </Col>
@@ -32,7 +31,7 @@ const Home = () => {
           <Col>
             <NewStudentModal create={true} resetState={resetState} />
           </Col>
-        </Row>
+        </Row> */}
       </Container>
     </>
   );

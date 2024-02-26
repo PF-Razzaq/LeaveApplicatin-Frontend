@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { API_URL } from "../Api/api";
+import { API_URL1 } from "../Api/api";
 import {
   Container,
   Form,
@@ -20,13 +20,15 @@ const ApplyLeave = () => {
     leaveType: "",
     reason: "",
   });
+
+  useEffect(() => {}, []);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
   const handleSubmit = async (props) => {
     try {
-      const response = await axios.post(API_URL, formData);
+      const response = await axios.post(API_URL1, formData);
       props.resetState();
       console.log("Data submitted successfully:", response.data);
     } catch (error) {
@@ -38,6 +40,8 @@ const ApplyLeave = () => {
   const defaultIfEmpty = (value) => {
     return value === "" ? "" : value;
   };
+
+  const leaveOptions = ["Sick", "Casual", "Annual"];
   return (
     <Container className="w-25">
       <h3 className="text-center mt-5">Apply For Leave</h3>
@@ -74,13 +78,22 @@ const ApplyLeave = () => {
             <FormGroup>
               <Label for="leaveType">Leave Type</Label>
               <Input
-                type="text"
+                type="select"
                 name="leaveType"
                 id="leaveType"
                 value={defaultIfEmpty(formData.leaveType)}
                 onChange={handleChange}
                 required
-              />
+              >
+                <option value="" disabled>
+                  Select Leave Type
+                </option>
+                {leaveOptions.map((option, index) => (
+                  <option key={index} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </Input>
             </FormGroup>
           </Col>
         </Row>

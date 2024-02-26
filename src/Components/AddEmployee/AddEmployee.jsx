@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../Api/api";
+// import { resetState } from "../Home/Home";
 import {
+  Table,
   Container,
   Form,
   FormGroup,
@@ -13,6 +15,8 @@ import {
 } from "reactstrap";
 
 const AddEmployee = (props) => {
+  const [employees, setEmployees] = useState([]);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -22,6 +26,19 @@ const AddEmployee = (props) => {
     role: "",
     employeeId: "",
   });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(API_URL);
+        setEmployees(response.data);
+      } catch (error) {
+        console.error("Error in AnotherComponent:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (props.employee) {
@@ -51,23 +68,33 @@ const AddEmployee = (props) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (props) => {
+  // const createEmployee = (e) => {
+  //   e.preventDefault();
+  //   axios.post(API_URL, formData).then(() => {
+  //     props.resetState();
+  //     props.toggle();
+  //   });
+  // };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const response = await axios.post(API_URL, formData);
-      props.resetState();
-      console.log("Data submitted successfully:", response.data);
+      console.log("Submitting FormData:", formData); // Add this line
+      await axios.post(API_URL, formData).then(() => {
+        // resetState();
+      });
+      console.log("Data submitted successfully:");
     } catch (error) {
-      props.resetState();
       console.error("Error submitting data:", error);
     }
   };
+
   const defaultIfEmpty = (value) => {
     return value === "" ? "" : value;
   };
   return (
     <Container className="w-25">
       <h1 className="text-center mt-5">Add Employee</h1>
-
       <Form onSubmit={handleSubmit}>
         <Row>
           <Col md={12}>
@@ -177,6 +204,46 @@ const AddEmployee = (props) => {
           Submit
         </Button>
       </Form>
+      <div>
+        <Button className="ms-5 mt-5 px-5 py-3 fs-3">Employee Data</Button>
+        <Row>
+          <Col md={8} className="m-auto">
+            <Table>
+              <thead>
+                <tr>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Birthday</th>
+                  <th>Department</th>
+                  <th>Role</th>
+                </tr>
+              </thead>
+              <tbody>
+                {!employees || employees.length <= 0 ? (
+                  <tr>
+                    <td colSpan="6" align="center">
+                      <b>Ops, no one here yet</b>
+                    </td>
+                  </tr>
+                ) : (
+                  employees.map((employee) => (
+                    <tr key={employee.pk}>
+                      <th>{employee.first_name}</th>
+                      <th>{employee.last_name}</th>
+                      <th>{employee.email}</th>
+                      <th>{employee.birthday}</th>
+                      <th>{employee.department}</th>
+                      <th>{employee.role}</th>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </Table>
+          </Col>
+        </Row>
+      </div>
+      ;
     </Container>
   );
 };
