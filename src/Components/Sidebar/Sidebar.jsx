@@ -5,6 +5,9 @@ import { RiPagesLine } from "react-icons/ri";
 import { Button } from "reactstrap";
 import { MdPeopleAlt } from "react-icons/md";
 import Body from "../Body/Body";
+import PersonDetail from "../Person Detail/PersonDetail";
+import LoginForm from "../Login/LoginForm";
+import Leave from "../Leave/Leave";
 
 const Sidebar = () => {
   return (
@@ -31,8 +34,11 @@ const Sidebar = () => {
             </div>
           </div>
         </div>
+        {/* <div className="right"><Body /></div> */}
         <div className="right">
-          <Body />
+          {/* <PersonDetail /> */}
+          {/* <LoginForm /> */}
+          <Leave />
         </div>
       </div>
     </>

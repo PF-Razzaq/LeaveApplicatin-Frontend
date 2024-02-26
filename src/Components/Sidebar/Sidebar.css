@@ -30,3 +30,11 @@ main {
 .logout {
   margin: 0px 0px 30px 135px;
 }
+
+.main div {
+  cursor: pointer;
+}
+
+.main-div .right {
+  width: 100%;
+}
