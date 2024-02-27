@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { API_URL } from "../Api/api";
-// import { resetState } from "../Home/Home";
+import { API_URL } from "../../index";
 import {
-  Table,
   Container,
   Form,
   FormGroup,
@@ -15,50 +13,35 @@ import {
 } from "reactstrap";
 
 const AddEmployee = (props) => {
-  const [employees, setEmployees] = useState([]);
-
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
     birthday: "",
     department: "",
     role: "",
-    employeeId: "",
+    employee_id: "",
   });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(API_URL);
-        setEmployees(response.data);
-      } catch (error) {
-        console.error("Error in AnotherComponent:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   useEffect(() => {
     if (props.employee) {
       const {
-        firstName,
-        lastName,
+        first_name,
+        last_name,
         email,
         birthday,
         department,
         role,
-        employeeId,
+        employee_id,
       } = props.employee;
       setFormData({
-        firstName,
-        lastName,
+        first_name,
+        last_name,
         email,
         birthday,
         department,
         role,
-        employeeId,
+        employee_id,
       });
     }
   }, [props.employee]);
@@ -68,24 +51,35 @@ const AddEmployee = (props) => {
     setFormData({ ...formData, [name]: value });
   };
 
-  // const createEmployee = (e) => {
-  //   e.preventDefault();
-  //   axios.post(API_URL, formData).then(() => {
-  //     props.resetState();
-  //     props.toggle();
-  //   });
-  // };
-
-  const handleSubmit = async (e) => {
+  const createEmployee = async (e) => {
     e.preventDefault();
     try {
-      console.log("Submitting FormData:", formData); // Add this line
-      await axios.post(API_URL, formData).then(() => {
-        // resetState();
-      });
-      console.log("Data submitted successfully:");
+      await axios.post(API_URL, formData);
+      console.log("Employee created successfully");
+      props.resetState();
+      props.toggle();
     } catch (error) {
-      console.error("Error submitting data:", error);
+      if (error.response) {
+        console.error("Error creating:", error.response.data);
+      } else {
+        console.error("Error creating employee:", error.message);
+      }
+    }
+  };
+
+  const editEmployee = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.put(API_URL + formData.pk, formData);
+      console.log("Employee edited successfully");
+      props.resetState();
+      props.toggle();
+    } catch (error) {
+      if (error.response) {
+        console.error("Error editing:", error.response.data);
+      } else {
+        console.error("Error editing employee:", error.message);
+      }
     }
   };
 
@@ -93,18 +87,21 @@ const AddEmployee = (props) => {
     return value === "" ? "" : value;
   };
   return (
-    <Container className="w-25">
-      <h1 className="text-center mt-5">Add Employee</h1>
-      <Form onSubmit={handleSubmit}>
+    <Form
+      md={12}
+      onSubmit={props.employee ? editEmployee : createEmployee}
+      action="post"
+    >
+      <Container>
         <Row>
           <Col md={12}>
             <FormGroup>
-              <Label for="firstName">First Name</Label>
+              <Label for="first_name">First Name</Label>
               <Input
                 type="text"
-                name="firstName"
-                id="firstName"
-                value={defaultIfEmpty(formData.firstName)}
+                name="first_name"
+                id="first_name"
+                value={defaultIfEmpty(formData.first_name)}
                 onChange={handleChange}
                 required
               />
@@ -112,12 +109,12 @@ const AddEmployee = (props) => {
           </Col>
           <Col md={12}>
             <FormGroup>
-              <Label for="lastName">Last Name</Label>
+              <Label for="last_name">Last Name</Label>
               <Input
                 type="text"
-                name="lastName"
-                id="lastName"
-                value={defaultIfEmpty(formData.lastName)}
+                name="last_name"
+                id="last_name"
+                value={defaultIfEmpty(formData.last_name)}
                 onChange={handleChange}
                 required
               />
@@ -188,12 +185,12 @@ const AddEmployee = (props) => {
           </Col>
           <Col md={12}>
             <FormGroup>
-              <Label for="employeeId">Employee ID</Label>
+              <Label for="employee_id">Employee ID</Label>
               <Input
                 type="text"
-                name="employeeId"
-                id="employeeId"
-                value={defaultIfEmpty(formData.employeeId)}
+                name="employee_id"
+                id="employee_id"
+                value={defaultIfEmpty(formData.employee_id)}
                 onChange={handleChange}
                 required
               />
@@ -203,48 +200,8 @@ const AddEmployee = (props) => {
         <Button className="w-100 bg-primary" type="submit">
           Submit
         </Button>
-      </Form>
-      <div>
-        <Button className="ms-5 mt-5 px-5 py-3 fs-3">Employee Data</Button>
-        <Row>
-          <Col md={8} className="m-auto">
-            <Table>
-              <thead>
-                <tr>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Email</th>
-                  <th>Birthday</th>
-                  <th>Department</th>
-                  <th>Role</th>
-                </tr>
-              </thead>
-              <tbody>
-                {!employees || employees.length <= 0 ? (
-                  <tr>
-                    <td colSpan="6" align="center">
-                      <b>Ops, no one here yet</b>
-                    </td>
-                  </tr>
-                ) : (
-                  employees.map((employee) => (
-                    <tr key={employee.pk}>
-                      <th>{employee.first_name}</th>
-                      <th>{employee.last_name}</th>
-                      <th>{employee.email}</th>
-                      <th>{employee.birthday}</th>
-                      <th>{employee.department}</th>
-                      <th>{employee.role}</th>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </Table>
-          </Col>
-        </Row>
-      </div>
-      ;
-    </Container>
+      </Container>
+    </Form>
   );
 };
 

@@ -4,13 +4,7 @@ import { MdDashboard } from "react-icons/md";
 import { RiPagesLine } from "react-icons/ri";
 import { Button } from "reactstrap";
 import { MdPeopleAlt } from "react-icons/md";
-import Body from "../Body/Body";
-import PersonDetail from "../Person Detail/PersonDetail";
-import LoginForm from "../Login/LoginForm";
-import Leave from "../Leave/Leave";
-import ApplyLeave from "../ApplyLeave/ApplyLeave";
 import Home from "../Home/Home";
-import AddEmployee from "../AddEmployee/AddEmployee";
 
 const Sidebar = () => {
   return (
@@ -44,7 +38,8 @@ const Sidebar = () => {
           {/* <Leave /> */}
           {/* <ApplyLeave /> */}
           {/* <Home /> */}
-          <AddEmployee />
+          {/* <AddEmployee /> */}
+          <Home />
         </div>
       </div>
     </>
