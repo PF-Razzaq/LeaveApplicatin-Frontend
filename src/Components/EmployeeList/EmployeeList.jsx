@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Button, Row, Col } from "reactstrap";
+import { Table, Row, Col } from "reactstrap";
 import ConfirmRemovalModal from "../ConfirmRemovalModal";
 import NewEmployeeModal from "../NewEmployeeModal";
 
@@ -10,7 +10,7 @@ const EmployeeList = (props) => {
       <Table dark>
         <Row>
           <Col md={10} className="m-auto">
-            <h2 className="mt-5 text-center bg-light text-black px-5 py-3 fs-3">
+            <h2 className="mt-5 text-center bg-light text-black py-3 fs-3">
               Employee Data
             </h2>
             <Table>
@@ -19,6 +19,7 @@ const EmployeeList = (props) => {
                   <th>First Name</th>
                   <th>Last Name</th>
                   <th>Email</th>
+                  <th>Password</th>
                   <th>Birthday</th>
                   <th>Department</th>
                   <th>Role</th>
@@ -38,6 +39,7 @@ const EmployeeList = (props) => {
                       <td>{employee.first_name}</td>
                       <td>{employee.last_name}</td>
                       <td>{employee.email}</td>
+                      <td>{employee.password}</td>
                       <td>{employee.birthday}</td>
                       <td>{employee.department}</td>
                       <td>{employee.role}</td>

@@ -14,9 +14,11 @@ import {
 
 const AddEmployee = (props) => {
   const [formData, setFormData] = useState({
+    pk: 0,
     first_name: "",
     last_name: "",
     email: "",
+    password: "",
     birthday: "",
     department: "",
     role: "",
@@ -26,18 +28,22 @@ const AddEmployee = (props) => {
   useEffect(() => {
     if (props.employee) {
       const {
+        pk,
         first_name,
         last_name,
         email,
+        password,
         birthday,
         department,
         role,
         employee_id,
       } = props.employee;
       setFormData({
+        pk,
         first_name,
         last_name,
         email,
+        password,
         birthday,
         department,
         role,
@@ -67,11 +73,11 @@ const AddEmployee = (props) => {
     }
   };
 
-  const editEmployee = async (e) => {
+  const editEmployee = async (e, employee_id) => {
+    console.log("Employee edited successfully formData.pk", formData);
     e.preventDefault();
     try {
-      await axios.put(API_URL + formData.pk, formData);
-      console.log("Employee edited successfully");
+      await axios.get(`${API_URL}/${employee_id}`, formData); // Use template literals to construct the URL
       props.resetState();
       props.toggle();
     } catch (error) {
@@ -133,6 +139,19 @@ const AddEmployee = (props) => {
               />
             </FormGroup>
           </Col>
+          <Col md={12}>
+            <FormGroup>
+              <Label for="password">Password</Label>
+              <Input
+                type="password"
+                name="password"
+                id="password"
+                value={defaultIfEmpty(formData.password)}
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
+          </Col>
         </Row>
         <Row>
           <Col md={12}>
@@ -179,7 +198,7 @@ const AddEmployee = (props) => {
                 </option>
                 <option value="Web Developer">Web Developer</option>
                 <option value="Tester">Tester</option>
-                <option value="Others">Others</option>
+                <option value="Tester">Admin</option>
               </Input>
             </FormGroup>
           </Col>
