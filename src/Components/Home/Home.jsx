@@ -27,6 +27,8 @@ const Home = () => {
 
   return (
     <>
+      {/* <Header />
+      <Sidebar /> */}
       <Container style={{ marginTop: "20px" }}>
         <Row>
           <Col>

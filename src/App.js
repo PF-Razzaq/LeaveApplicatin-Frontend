@@ -1,18 +1,20 @@
 import React from "react";
 import Header from "./Components/Header/Header";
 import Sidebar from "./Components/Sidebar/Sidebar";
-import AddEmployee from "./Components/AddEmployee/AddEmployee";
-import ApplyLeave from "./Components/ApplyLeave/ApplyLeave";
-import Home from "./Components/Home/Home";
+import Login from "./Components/Login/LoginForm";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 
 const App = () => {
   return (
-    <div>
-      {/* <ApplyLeave /> */}
-      <Header />
-      <Sidebar />
-      {/* <AddEmployee /> */}
-    </div>
+    <>
+      <BrowserRouter>
+        <Routes>
+          {/* <Route path="/login" element={<Header />} /> */}
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<Navigate to="/login" />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 };
 
