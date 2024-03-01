@@ -42,3 +42,7 @@
 .leave-dropdown {
   margin-right: 34px;
 }
+
+.hide-main {
+  display: none;
+}

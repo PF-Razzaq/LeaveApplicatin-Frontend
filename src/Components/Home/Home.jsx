@@ -4,6 +4,8 @@ import { Col, Container, Row } from "reactstrap";
 import { API_URL } from "../Api/api";
 import EmployeeList from "../EmployeeList/EmployeeList";
 import NewEmployeeModal from "../NewEmployeeModal";
+import Header from "../Header/Header";
+import Sidebar from "../Sidebar/Sidebar";
 
 const Home = () => {
   const [employees, setEmployees] = useState([]);
@@ -27,9 +29,9 @@ const Home = () => {
 
   return (
     <>
-      {/* <Header />
-      <Sidebar /> */}
-      <Container style={{ marginTop: "20px" }}>
+      <Header />
+      <Sidebar />
+      {/* <Container>
         <Row>
           <Col>
             <EmployeeList employees={employees} resetState={resetState} />
@@ -40,7 +42,7 @@ const Home = () => {
             <NewEmployeeModal create={true} resetState={resetState} />
           </Col>
         </Row>
-      </Container>
+      </Container> */}
     </>
   );
 };

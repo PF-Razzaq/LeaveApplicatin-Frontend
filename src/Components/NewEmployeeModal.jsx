@@ -15,11 +15,11 @@ const NewEmployeeModal = (props) => {
   const button = create ? (
     <Button
       color="primary"
-      className="float-end"
+      className="float-end me-5"
       onClick={toggle}
-      style={{ minWidth: "200px" }}
+      style={{ minWidth: "180px" }}
     >
-      Create New
+      Add Employee
     </Button>
   ) : (
     <Button onClick={toggle}>Edit</Button>

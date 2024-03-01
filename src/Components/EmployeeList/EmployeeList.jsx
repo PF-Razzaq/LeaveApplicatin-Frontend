@@ -9,7 +9,7 @@ const EmployeeList = (props) => {
     <>
       <Table dark>
         <Row>
-          <Col md={10} className="m-auto">
+          <Col md={12} className="m-auto">
             <h2 className="mt-5 text-center bg-light text-black py-3 fs-3">
               Employee Data
             </h2>

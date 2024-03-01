@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Flip, Slide, toast } from "react-toastify";
+
 import {
   Container,
   Row,
@@ -12,9 +15,11 @@ import {
 } from "reactstrap";
 import Header from "../Header/Header";
 import axios from "axios";
-import { API_URL_LOGIN } from "../Api/api";
+import { API_URL } from "../Api/api";
 
 const LoginForm = () => {
+  const [employee, setEmployees] = useState([]);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -22,6 +27,19 @@ const LoginForm = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const getEmployees = async () => {
+    try {
+      const res = await axios.get(API_URL);
+      setEmployees(res.data);
+    } catch (error) {
+      console.error("Error fetching employees:", error);
+    }
+  };
+
+  useEffect(() => {
+    getEmployees();
+  }, []); // Empty dependency array ensures the effect runs only once on mount
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -36,17 +54,66 @@ const LoginForm = () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await axios.post(API_URL_LOGIN, formData);
-      console.log("res", res);
-      const accessToken = res.data.access_token;
-      // Store the access token in local storage or state as needed
-      localStorage.setItem("accessToken", accessToken);
-      console.log("accessToken", accessToken);
-      console.log("User logged in successfully");
+      const matchingAdmin = employee.find(
+        (data) =>
+          data.email === formData.email &&
+          data.password === formData.password &&
+          data.role === "Admin"
+      );
+
+      const matchingUser = employee.find(
+        (data) =>
+          data.email === formData.email && data.password === formData.password
+      );
+      if (matchingAdmin) {
+        toast.success(
+          `Welcome ${matchingAdmin.first_name} ${matchingAdmin.last_name}`,
+          {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Flip,
+          }
+        );
+        navigate("/home");
+      } else if (matchingUser) {
+        toast.success(
+          `Welcome ${matchingUser.first_name} ${matchingUser.last_name}`,
+          {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Flip,
+          }
+        );
+        navigate("/user");
+      } else {
+        toast.success(`Invalid credentials. Please try again.`, {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Slide,
+        });
+        setError("Invalid credentials. Please try again.");
+        throw new Error("Invalid Credentials");
+      }
     } catch (error) {
-      setError("Invalid credentials. Please try again."); // Provide more user-friendly error messages
       console.error("Error occurred while logging in", error);
-      console.error("Error details:", error.response.data);
     } finally {
       setLoading(false);
     }

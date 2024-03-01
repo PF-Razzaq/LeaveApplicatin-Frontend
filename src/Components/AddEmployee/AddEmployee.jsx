@@ -171,13 +171,19 @@ const AddEmployee = (props) => {
             <FormGroup>
               <Label for="department">Department</Label>
               <Input
-                type="text"
+                type="select"
                 name="department"
                 id="department"
                 value={defaultIfEmpty(formData.department)}
                 onChange={handleChange}
                 required
-              />
+              >
+                <option value="" disabled selected>
+                  Select Department
+                </option>
+                <option value="Web Developer">Web Developer</option>
+                <option value="HR">HR</option>
+              </Input>
             </FormGroup>
           </Col>
         </Row>
@@ -198,7 +204,7 @@ const AddEmployee = (props) => {
                 </option>
                 <option value="Web Developer">Web Developer</option>
                 <option value="Tester">Tester</option>
-                <option value="Tester">Admin</option>
+                <option value="Admin">Admin</option>
               </Input>
             </FormGroup>
           </Col>
