@@ -60,7 +60,6 @@ const LoginForm = () => {
           data.password === formData.password &&
           data.role === "Admin"
       );
-
       const matchingUser = employee.find(
         (data) =>
           data.email === formData.email && data.password === formData.password

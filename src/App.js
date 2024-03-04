@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import User from "./Components/User/User";
+import UserRecord from "./Components/User/UserRecord";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
           <Route path="*" element={<Navigate to="/login" />} />
           <Route path="/home" element={<Home />} />
           <Route path="/user" element={<User />} />
+          <Route path="/userrecord" element={<UserRecord />} />
         </Routes>
       </BrowserRouter>
     </>

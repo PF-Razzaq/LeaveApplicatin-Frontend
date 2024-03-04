@@ -1,48 +1,16 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Col, Container, Row } from "reactstrap";
-import { API_URL } from "../Api/api";
-import EmployeeList from "../EmployeeList/EmployeeList";
-import NewEmployeeModal from "../NewEmployeeModal";
+import React from "react";
 import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
+import Body from "../Body/Body";
 
 const Home = () => {
-  const [employees, setEmployees] = useState([]);
-
-  const getEmployees = async () => {
-    try {
-      const res = await axios.get(API_URL);
-      setEmployees(res.data);
-    } catch (error) {
-      console.error("Error fetching employees:", error);
-    }
-  };
-
-  const resetState = () => {
-    getEmployees();
-  };
-
-  useEffect(() => {
-    resetState();
-  }, []);
-
   return (
     <>
       <Header />
-      <Sidebar />
-      {/* <Container>
-        <Row>
-          <Col>
-            <EmployeeList employees={employees} resetState={resetState} />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <NewEmployeeModal create={true} resetState={resetState} />
-          </Col>
-        </Row>
-      </Container> */}
+      <div className="d-flex">
+        <Sidebar />
+        <Body />
+      </div>
     </>
   );
 };

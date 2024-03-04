@@ -1,7 +1,6 @@
 .body {
   width: calc(100vw - 250px);
   height: calc(100vh - 90px);
-  background-color: rgb(207, 196, 175);
 }
 
 .main-leave {
@@ -28,13 +27,13 @@
 }
 
 .leaves .my-div {
-  width: 385px;
+  width: 390px;
   background: gray;
   text-align: center;
   margin-top: 30px;
   padding: 74px;
   color: black;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 500;
   cursor: pointer;
 }

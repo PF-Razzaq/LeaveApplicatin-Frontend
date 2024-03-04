@@ -27,9 +27,9 @@ const Leave = (props) => {
   return (
     <>
       <div>
-        <Button className="ms-5 mt-5 px-5 py-3 fs-3">Apply For Leave</Button>
+        {/* <Button className="ms-5 mt-5 px-5 py-3 fs-3">Apply For Leave</Button> */}
         <Row>
-          <Col md={8} className="m-auto mt-5">
+          <Col md={12} className="m-auto mt-5">
             <Table>
               <thead>
                 <tr>

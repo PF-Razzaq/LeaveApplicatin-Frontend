@@ -1,15 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { API_URL } from "../Api/api";
 import Header from "../Header/Header";
-import Sidebar from "../Sidebar/Sidebar";
-import Body from "../Body/Body";
+import SidebarUser from "../Sidebar/SidebarUser";
+import Leave from "../Leave/Leave";
+import UserLeaveSection from "./UserLeaveSection";
 
 const User = () => {
+  const [employees, setEmployees] = useState([]);
+
+  const getEmployees = async () => {
+    try {
+      const res = await axios.get(API_URL);
+      setEmployees(res.data);
+    } catch (error) {
+      console.error("Error fetching employees:", error);
+    }
+  };
+
+  const resetState = () => {
+    getEmployees();
+  };
+
+  useEffect(() => {
+    resetState();
+  }, []);
+
   return (
     <>
       <Header />
       <div className="d-flex">
-        <Sidebar />
-        <Body />
+        <SidebarUser />
+        <UserLeaveSection />
       </div>
     </>
   );

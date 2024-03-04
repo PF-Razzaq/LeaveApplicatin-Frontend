@@ -46,7 +46,7 @@ const Sidebar = () => {
               <div
                 className="dashboard"
                 onClick={() => {
-                  navigate("/home");
+                  navigate("/user");
                 }}
               >
                 <MdDashboard className="icon" />
@@ -56,17 +56,6 @@ const Sidebar = () => {
                 <RiPagesLine className="icon" />
                 <h4>Leave Section</h4>
               </div>
-              {matchingAdmin && (
-                <div
-                  className="employee"
-                  onClick={() => {
-                    navigate("/userrecord");
-                  }}
-                >
-                  <MdPeopleAlt className="icon" />
-                  <h4>Employee Section</h4>
-                </div>
-              )}
             </main>
             <div className="logout">
               <Button

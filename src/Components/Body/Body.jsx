@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "./Body.css";
-import { Button } from "reactstrap";
 import { Container, Row, Col } from "reactstrap";
 import EmployeeList from "../EmployeeList/EmployeeList";
 import NewEmployeeModal from "../NewEmployeeModal";
 import axios from "axios";
 import { API_URL } from "../Api/api";
+import { useNavigate } from "react-router-dom";
 
 const Body = () => {
   const [employees, setEmployees] = useState([]);
-  const [show, setShow] = useState(null);
+  const [show, setShow] = useState(true);
+  const [record, setRecord] = useState(true);
 
+  const navigate = useNavigate();
   const getEmployees = async () => {
     try {
       const res = await axios.get(API_URL);
@@ -20,6 +22,10 @@ const Body = () => {
     }
   };
 
+  const handleClickHide = () => {
+    setShow(!show);
+  };
+
   const resetState = () => {
     getEmployees();
   };
@@ -27,50 +33,39 @@ const Body = () => {
   useEffect(() => {
     resetState();
   }, []);
-  const registeredEmployee = () => {
-    // Assuming employees and resetState are defined somewhere
-    return (
-      <Container>
-        <Row>
-          <Col>
-            <EmployeeList employees={employees} resetState={resetState} />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <NewEmployeeModal create={true} resetState={resetState} />
-          </Col>
-        </Row>
-      </Container>
-    );
-  };
+
+  const registeredEmployee = () => (
+    <Container>
+      <Row>
+        <Col>
+          <EmployeeList employees={employees} resetState={resetState} />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <NewEmployeeModal create={true} resetState={resetState} />
+        </Col>
+      </Row>
+    </Container>
+  );
 
   return (
     <div className="body">
       <main className="main-leave">
-        <div className="select-leave">
-          <div className="leave-dropdown">
-            <select name="" id="" className="leave-section">
-              <option disabled defaultValue="Select Leave">
-                Selected Leave
-              </option>
-              <option value="Pending Leaves">Pending Leaves</option>
-              <option value="Rejected Leaves">Rejected Leaves</option>
-              <option value="Accepted Leaves">Accepted Leaves</option>
-            </select>
-          </div>
+        <div className={`parent ${show ? "" : "d-none"}`}>
+          {/* Your leave dropdown code */}
         </div>
-        <div className="leaves">
-          <Container>
+        <div className={`leaves ${show ? "" : "d-none"}`}>
+          <Container className={`parent ${show ? "" : "hidden"}`}>
             <Row>
               <Col>
                 <div
                   className="my-div"
                   onClick={() => {
-                    setShow(!show);
+                    navigate("/userrecord");
                   }}
                 >
-                  Registered Employee
+                  Registered Employee: {employees.length}
                 </div>
               </Col>
               <Col>
@@ -78,9 +73,18 @@ const Body = () => {
               </Col>
             </Row>
           </Container>
-          {show && registeredEmployee()}
         </div>
       </main>
+      {/* 
+      <div className={`${!show ? "" : "d-none"}`}>
+        <button
+          onClick={handleClickHide}
+          className="btn btn-primary px-5 py-2 ms-5"
+        >
+          Back
+        </button>
+        {registeredEmployee()}
+      </div> */}
     </div>
   );
 };
