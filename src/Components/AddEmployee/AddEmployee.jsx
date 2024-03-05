@@ -73,11 +73,11 @@ const AddEmployee = (props) => {
     }
   };
 
-  const editEmployee = async (e, employee_id) => {
-    console.log("Employee edited successfully formData.pk", formData);
+  const editEmployee = async (e, pk) => {
+    console.log("Employee edited successfully formData.pk", pk);
     e.preventDefault();
     try {
-      await axios.get(`${API_URL}/${employee_id}`, formData); // Use template literals to construct the URL
+      await axios.put(API_URL + formData.pk, formData);
       props.resetState();
       props.toggle();
     } catch (error) {
@@ -96,7 +96,7 @@ const AddEmployee = (props) => {
     <Form
       md={12}
       onSubmit={props.employee ? editEmployee : createEmployee}
-      action="post"
+      method="post"
     >
       <Container>
         <Row>

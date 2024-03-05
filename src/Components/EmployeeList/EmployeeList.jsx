@@ -35,7 +35,7 @@ const EmployeeList = (props) => {
                   </tr>
                 ) : (
                   employees.map((employee) => (
-                    <tr key={employee.pk}>
+                    <tr key={employee.id}>
                       <td>{employee.first_name}</td>
                       <td>{employee.last_name}</td>
                       <td>{employee.email}</td>
@@ -51,7 +51,7 @@ const EmployeeList = (props) => {
                         />
                         &nbsp;&nbsp;
                         <ConfirmRemovalModal
-                          pk={employee.pk}
+                          id={employee.id}
                           resetState={props.resetState}
                         />
                       </td>

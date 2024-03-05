@@ -19,7 +19,6 @@ const UserRecord = () => {
       console.error("Error fetching employees:", error);
     }
   };
-
   const resetState = () => {
     getEmployees();
   };

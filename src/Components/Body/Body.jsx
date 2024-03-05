@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 const Body = () => {
   const [employees, setEmployees] = useState([]);
   const [show, setShow] = useState(true);
-  const [record, setRecord] = useState(true);
 
   const navigate = useNavigate();
   const getEmployees = async () => {
@@ -22,10 +21,6 @@ const Body = () => {
     }
   };
 
-  const handleClickHide = () => {
-    setShow(!show);
-  };
-
   const resetState = () => {
     getEmployees();
   };
@@ -34,27 +29,10 @@ const Body = () => {
     resetState();
   }, []);
 
-  const registeredEmployee = () => (
-    <Container>
-      <Row>
-        <Col>
-          <EmployeeList employees={employees} resetState={resetState} />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <NewEmployeeModal create={true} resetState={resetState} />
-        </Col>
-      </Row>
-    </Container>
-  );
-
   return (
     <div className="body">
       <main className="main-leave">
-        <div className={`parent ${show ? "" : "d-none"}`}>
-          {/* Your leave dropdown code */}
-        </div>
+        <div className={`parent ${show ? "" : "d-none"}`}></div>
         <div className={`leaves ${show ? "" : "d-none"}`}>
           <Container className={`parent ${show ? "" : "hidden"}`}>
             <Row>
@@ -75,16 +53,6 @@ const Body = () => {
           </Container>
         </div>
       </main>
-      {/* 
-      <div className={`${!show ? "" : "d-none"}`}>
-        <button
-          onClick={handleClickHide}
-          className="btn btn-primary px-5 py-2 ms-5"
-        >
-          Back
-        </button>
-        {registeredEmployee()}
-      </div> */}
     </div>
   );
 };

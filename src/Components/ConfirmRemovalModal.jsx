@@ -10,10 +10,10 @@ const ConfirmRemovalModal = (props) => {
     setModal((previousModal) => !previousModal);
   };
 
-  const deleteEmployee = async (pk) => {
+  const deleteEmployee = async (id) => {
     try {
-      console.log("Deleting employee with pk:", pk);
-      await axios.delete(API_URL + pk);
+      console.log("Deleting employee with pk:", id);
+      await axios.delete(API_URL + id);
       props.resetState();
       toggle();
       console.log("Deleting Succesfully");
@@ -37,7 +37,7 @@ const ConfirmRemovalModal = (props) => {
           <Button
             type="button"
             color="primary"
-            onClick={() => deleteEmployee(props.pk)}
+            onClick={() => deleteEmployee(props.id)}
           >
             Yes
           </Button>
