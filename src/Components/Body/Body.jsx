@@ -6,6 +6,7 @@ import NewEmployeeModal from "../NewEmployeeModal";
 import axios from "axios";
 import { API_URL } from "../Api/api";
 import { useNavigate } from "react-router-dom";
+import LeaveRequested from "../LeaveRequested/LeaveRequested";
 
 const Body = () => {
   const [employees, setEmployees] = useState([]);
@@ -47,12 +48,15 @@ const Body = () => {
                 </div>
               </Col>
               <Col>
-                <div className="my-div">Leave Requested</div>
+                <div className="my-div" onClick={() => {}}>
+                  Leave Requested
+                </div>
               </Col>
             </Row>
           </Container>
         </div>
       </main>
+      {<LeaveRequested />}
     </div>
   );
 };

@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import User from "./Components/User/User";
 import UserRecord from "./Components/User/UserRecord";
+import UserLeaveRecord from "./Components/User/UserLeaveRecord";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/home" element={<Home />} />
           <Route path="/user" element={<User />} />
           <Route path="/userrecord" element={<UserRecord />} />
+          <Route path="/useleaverecord" element={<UserLeaveRecord />} />
         </Routes>
       </BrowserRouter>
     </>

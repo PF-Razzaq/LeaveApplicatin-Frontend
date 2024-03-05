@@ -14,7 +14,7 @@ import {
 
 const AddEmployee = (props) => {
   const [formData, setFormData] = useState({
-    pk: 0,
+    id: 0,
     first_name: "",
     last_name: "",
     email: "",
@@ -28,7 +28,7 @@ const AddEmployee = (props) => {
   useEffect(() => {
     if (props.employee) {
       const {
-        pk,
+        id,
         first_name,
         last_name,
         email,
@@ -39,7 +39,7 @@ const AddEmployee = (props) => {
         employee_id,
       } = props.employee;
       setFormData({
-        pk,
+        id,
         first_name,
         last_name,
         email,
@@ -73,25 +73,25 @@ const AddEmployee = (props) => {
     }
   };
 
-  const editEmployee = async (e, pk) => {
-    console.log("Employee edited successfully formData.pk", pk);
+  const editEmployee = (e) => {
     e.preventDefault();
-    try {
-      await axios.put(API_URL + formData.pk, formData);
-      props.resetState();
-      props.toggle();
-    } catch (error) {
-      if (error.response) {
-        console.error("Error editing:", error.response.data);
-      } else {
-        console.error("Error editing employee:", error.message);
-      }
-    }
+    console.log("formData1", formData.id);
+
+    axios
+      .put(`${API_URL}${formData.id}/`, formData)
+      .then(() => {
+        props.resetState();
+        props.toggle();
+      })
+      .catch((error) => {
+        console.error("Error editing employee:", error);
+      });
   };
 
   const defaultIfEmpty = (value) => {
     return value === "" ? "" : value;
   };
+
   return (
     <Form
       md={12}

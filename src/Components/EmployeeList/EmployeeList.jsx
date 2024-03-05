@@ -39,7 +39,18 @@ const EmployeeList = (props) => {
                       <td>{employee.first_name}</td>
                       <td>{employee.last_name}</td>
                       <td>{employee.email}</td>
-                      <td>{employee.password}</td>
+                      <td>
+                        <input
+                          type="password"
+                          style={{
+                            width: "100px",
+                            border: "none",
+                            outline: "none",
+                          }}
+                          readOnly
+                          value={employee.password}
+                        />
+                      </td>
                       <td>{employee.birthday}</td>
                       <td>{employee.department}</td>
                       <td>{employee.role}</td>

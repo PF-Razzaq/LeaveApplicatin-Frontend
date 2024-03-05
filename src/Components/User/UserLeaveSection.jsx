@@ -1,7 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Col } from "reactstrap";
 
 const UserLeaveSection = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Col>
@@ -16,15 +18,18 @@ const UserLeaveSection = () => {
             flexDirection: "column",
             justifyContent: "center",
           }}
-          onClick={() => {}}
         >
           <h4
             style={{
               display: "flex",
               justifyContent: "center",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              navigate("/useleaverecord");
             }}
           >
-            Leave Section
+            Leave Applied
           </h4>
         </div>
       </Col>

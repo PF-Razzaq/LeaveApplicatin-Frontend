@@ -52,7 +52,12 @@ const Sidebar = () => {
                 <MdDashboard className="icon" />
                 <h4>Dashboard</h4>
               </div>
-              <div className="leave">
+              <div
+                className="leave"
+                onClick={() => {
+                  navigate("/useleaverecord");
+                }}
+              >
                 <RiPagesLine className="icon" />
                 <h4>Leave Section</h4>
               </div>

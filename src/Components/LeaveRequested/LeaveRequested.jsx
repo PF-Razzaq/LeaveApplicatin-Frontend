@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Table, Row, Col, Button } from "reactstrap";
 import { API_URL_LEAVE } from "../Api/api";
 import axios from "axios";
-const Leave = (props) => {
+
+const LeaveRequested = () => {
   const [leaveData, setLeaveData] = useState([]);
 
   useEffect(() => {
@@ -17,7 +18,6 @@ const Leave = (props) => {
 
     fetchData();
   }, []);
-
   return (
     <>
       <div>
@@ -30,6 +30,8 @@ const Leave = (props) => {
                   <th>End Date</th>
                   <th>Leave Type</th>
                   <th>Reason</th>
+                  <th>Action</th>
+                  <th>Reject Reason</th>
                 </tr>
               </thead>
               <tbody>
@@ -46,6 +48,15 @@ const Leave = (props) => {
                       <td>{leaveData.end_date}</td>
                       <td>{leaveData.leave_type}</td>
                       <td>{leaveData.reason}</td>
+                      <td>
+                        <button className="btn btn-success me-2">
+                          Approved
+                        </button>
+                        <button className="btn btn-danger">Reject</button>
+                      </td>
+                      <td>
+                        <input type="text" />
+                      </td>
                     </tr>
                   ))
                 )}
@@ -58,4 +69,4 @@ const Leave = (props) => {
   );
 };
 
-export default Leave;
+export default LeaveRequested;

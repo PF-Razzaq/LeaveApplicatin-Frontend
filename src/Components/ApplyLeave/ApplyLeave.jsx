@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { API_URL1 } from "../Api/api";
+import { API_URL_LEAVE } from "../Api/api";
 import {
   Container,
   Form,
@@ -13,25 +13,46 @@ import {
 } from "reactstrap";
 import "./ApplyLeave.css";
 
-const ApplyLeave = () => {
+const ApplyLeave = (props) => {
   const [formData, setFormData] = useState({
-    startDate: "",
-    endDate: "",
-    leaveType: "",
+    id: 0,
+    start_date: "",
+    end_date: "",
+    leave_type: "",
     reason: "",
   });
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (props.apply_leave) {
+      const { id, start_date, end_date, leave_type, reason } =
+        props.apply_leave;
+      setFormData({
+        id,
+        start_date,
+        end_date,
+        leave_type,
+        reason,
+      });
+    }
+  }, [props.apply_leave]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  const handleSubmit = async (props) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("formData0", formData);
+
     try {
-      const response = await axios.post(API_URL1, formData);
+      console.log("formData1", formData);
+      await axios.post(API_URL_LEAVE, formData);
+      console.log("formData2", formData);
       props.resetState();
-      console.log("Data submitted successfully:", response.data);
+      props.toggle();
+      console.log("Data submitted successfully:");
     } catch (error) {
+      console.log("formData3", formData);
+
       props.resetState();
       console.error("Error submitting data:", error);
     }
@@ -43,19 +64,17 @@ const ApplyLeave = () => {
 
   const leaveOptions = ["Sick", "Casual", "Annual"];
   return (
-    <Container className="w-25">
-      <h3 className="text-center mt-5">Apply For Leave</h3>
-
-      <Form onSubmit={handleSubmit} action="post">
+    <Container>
+      <Form onSubmit={handleSubmit} method="post">
         <Row>
           <Col md={12}>
             <FormGroup>
-              <Label for="startDate">Start Date</Label>
+              <Label for="start_date">Start Date</Label>
               <Input
                 type="date"
-                name="startDate"
-                id="startDate"
-                value={defaultIfEmpty(formData.startDate)}
+                name="start_date"
+                id="start_date"
+                value={defaultIfEmpty(formData.start_date)}
                 onChange={handleChange}
                 required
               />
@@ -63,12 +82,12 @@ const ApplyLeave = () => {
           </Col>
           <Col md={12}>
             <FormGroup>
-              <Label for="endDate">End Date</Label>
+              <Label for="end_date">End Date</Label>
               <Input
                 type="date"
-                name="endDate"
-                id="endDate"
-                value={defaultIfEmpty(formData.endDate)}
+                name="end_date"
+                id="end_date"
+                value={defaultIfEmpty(formData.end_date)}
                 onChange={handleChange}
                 required
               />
@@ -76,12 +95,12 @@ const ApplyLeave = () => {
           </Col>
           <Col md={12}>
             <FormGroup>
-              <Label for="leaveType">Leave Type</Label>
+              <Label for="leave_type">Leave Type</Label>
               <Input
                 type="select"
-                name="leaveType"
-                id="leaveType"
-                value={defaultIfEmpty(formData.leaveType)}
+                name="leave_type"
+                id="leave_type"
+                value={defaultIfEmpty(formData.leave_type)}
                 onChange={handleChange}
                 required
               >
