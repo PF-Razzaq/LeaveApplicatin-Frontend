@@ -54,7 +54,7 @@ const Body = (props) => {
                     navigate("/userrecord");
                   }}
                 >
-                  Registered Employee: {employees.length}
+                  Registered Employee {employees.length}
                 </div>
               </Col>
               <Col>

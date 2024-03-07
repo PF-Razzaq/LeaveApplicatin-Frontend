@@ -6,10 +6,13 @@ import Body from "../Body/Body";
 const Home = () => {
   return (
     <>
-      <Header />
-      <div className="d-flex">
-        <Sidebar />
-        <Body />
+      <div style={{ overflow: "hidden" }}>
+        {" "}
+        <Header />
+        <div className="d-flex">
+          <Sidebar />
+          <Body />
+        </div>
       </div>
     </>
   );

@@ -2,7 +2,6 @@ import React from "react";
 
 const Footer = () => {
   const date = new Date().getFullYear();
-  console.log(date);
   return (
     <div className="text-center" style={{ marginTop: "-30px", color: "#111" }}>
       {" "}

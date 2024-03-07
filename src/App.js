@@ -22,7 +22,7 @@ const App = () => {
           <Route path="/userrecord" element={<UserRecord />} />
           <Route path="/useleaverecord" element={<UserLeaveRecord />} />
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </BrowserRouter>
     </>
   );

@@ -103,7 +103,6 @@ const ApplyLeave = (props) => {
                 onChange={(e) => {
                   handeDateChange(e.target.value, "start_date");
                 }}
-                required
               />
             </FormGroup>
           </Col>
@@ -118,7 +117,6 @@ const ApplyLeave = (props) => {
                 onChange={(e) => {
                   handeDateChange(e.target.value, "end_date");
                 }}
-                required
               />
             </FormGroup>
           </Col>
@@ -130,7 +128,6 @@ const ApplyLeave = (props) => {
                 name="days"
                 id="days"
                 value={formData.days}
-                required
                 readOnly
               />
             </FormGroup>
@@ -144,7 +141,6 @@ const ApplyLeave = (props) => {
                 id="leave_type"
                 value={defaultIfEmpty(formData.leave_type)}
                 onChange={handleChange}
-                required
               >
                 <option value="" disabled>
                   Select Leave Type
@@ -168,7 +164,6 @@ const ApplyLeave = (props) => {
                 id="reason"
                 value={defaultIfEmpty(formData.reason)}
                 onChange={handleChange}
-                required
               />
             </FormGroup>
           </Col>

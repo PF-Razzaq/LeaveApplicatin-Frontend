@@ -19,9 +19,19 @@ const LeaveRequested = () => {
     fetchData();
   }, []);
 
-  const handleAction = async (id, status) => {
+  const handleAction = async (id, newStatus) => {
     try {
-      const response = await axios.put(`${API_URL_LEAVE}${id}`, { status });
+      const existingLeaveData = leaveData.find((data) => data.id === id);
+      console.log("existingLeaveData", existingLeaveData);
+      const statusUpdate = {
+        status: newStatus,
+        start_date: existingLeaveData.start_date,
+        end_date: existingLeaveData.end_date,
+        leave_type: existingLeaveData.leave_type,
+        reason: existingLeaveData.reason,
+      };
+      console.log("statusUpdate", statusUpdate);
+      const response = await axios.put(`${API_URL_LEAVE}${id}`, statusUpdate);
       console.log("LEAVEDATA76", response);
 
       const updatedResponse = await axios.get(API_URL_LEAVE);
@@ -32,8 +42,6 @@ const LeaveRequested = () => {
       console.error("Error:", error.response || error.message || error);
     }
   };
-
-  useEffect(() => {}, [leaveData]);
 
   return (
     <>
