@@ -4,12 +4,13 @@ import { Container, Row, Col } from "reactstrap";
 import EmployeeList from "../EmployeeList/EmployeeList";
 import NewEmployeeModal from "../NewEmployeeModal";
 import axios from "axios";
-import { API_URL } from "../Api/api";
+import { API_URL, API_URL_LEAVE } from "../Api/api";
 import { useNavigate } from "react-router-dom";
 import LeaveRequested from "../LeaveRequested/LeaveRequested";
 
-const Body = () => {
+const Body = (props) => {
   const [employees, setEmployees] = useState([]);
+  const [leaves, setLeaves] = useState([]);
   const [show, setShow] = useState(true);
 
   const navigate = useNavigate();
@@ -21,9 +22,18 @@ const Body = () => {
       console.error("Error fetching employees:", error);
     }
   };
+  const getLeaves = async () => {
+    try {
+      const res = await axios.get(API_URL_LEAVE);
+      setLeaves(res.data);
+    } catch (error) {
+      console.error("Error fetching employees:", error);
+    }
+  };
 
   const resetState = () => {
     getEmployees();
+    getLeaves();
   };
 
   useEffect(() => {
@@ -48,15 +58,20 @@ const Body = () => {
                 </div>
               </Col>
               <Col>
-                <div className="my-div" onClick={() => {}}>
-                  Leave Requested
+                <div
+                  className="my-div"
+                  onClick={() => {
+                    setShow(!show);
+                  }}
+                >
+                  Leave Requested {leaves.length}
                 </div>
               </Col>
             </Row>
           </Container>
         </div>
       </main>
-      {<LeaveRequested />}
+      {!show && <LeaveRequested />}
     </div>
   );
 };

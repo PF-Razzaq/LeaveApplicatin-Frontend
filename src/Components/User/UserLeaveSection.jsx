@@ -2,7 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Col } from "reactstrap";
 
-const UserLeaveSection = () => {
+const UserLeaveSection = (props) => {
+  const { leaves } = props;
   const navigate = useNavigate();
   return (
     <>
@@ -29,7 +30,7 @@ const UserLeaveSection = () => {
               navigate("/useleaverecord");
             }}
           >
-            Leave Applied
+            Leave Applied {leaves.length}
           </h4>
         </div>
       </Col>

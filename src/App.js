@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import User from "./Components/User/User";
 import UserRecord from "./Components/User/UserRecord";
 import UserLeaveRecord from "./Components/User/UserLeaveRecord";
+import Footer from "./Components/Footer/Footer";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Route path="/userrecord" element={<UserRecord />} />
           <Route path="/useleaverecord" element={<UserLeaveRecord />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );

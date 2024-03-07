@@ -28,8 +28,10 @@ const Leave = (props) => {
                 <tr>
                   <th>Start Date</th>
                   <th>End Date</th>
+                  <th>Days</th>
                   <th>Leave Type</th>
                   <th>Reason</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -44,8 +46,24 @@ const Leave = (props) => {
                     <tr key={leaveData.pk}>
                       <td>{leaveData.start_date}</td>
                       <td>{leaveData.end_date}</td>
+                      <td>{leaveData.days}</td>
                       <td>{leaveData.leave_type}</td>
                       <td>{leaveData.reason}</td>
+                      <td>
+                        {leaveData.status === 0 && (
+                          <Button className="btn btn-warning">Padding</Button>
+                        )}
+                        {leaveData.status === 1 && (
+                          <Button className="btn btn-success" disabled>
+                            Approved
+                          </Button>
+                        )}
+                        {leaveData.status === 2 && (
+                          <Button className="btn btn-danger" disabled>
+                            Rejected
+                          </Button>
+                        )}
+                      </td>
                     </tr>
                   ))
                 )}

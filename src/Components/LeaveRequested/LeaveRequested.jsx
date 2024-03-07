@@ -18,6 +18,23 @@ const LeaveRequested = () => {
 
     fetchData();
   }, []);
+
+  const handleAction = async (id, status) => {
+    try {
+      const response = await axios.put(`${API_URL_LEAVE}${id}`, { status });
+      console.log("LEAVEDATA76", response);
+
+      const updatedResponse = await axios.get(API_URL_LEAVE);
+      console.log("LEAVEDATA", updatedResponse);
+
+      setLeaveData(updatedResponse.data);
+    } catch (error) {
+      console.error("Error:", error.response || error.message || error);
+    }
+  };
+
+  useEffect(() => {}, [leaveData]);
+
   return (
     <>
       <div>
@@ -28,10 +45,10 @@ const LeaveRequested = () => {
                 <tr>
                   <th>Start Date</th>
                   <th>End Date</th>
+                  <th>Days</th>
                   <th>Leave Type</th>
                   <th>Reason</th>
                   <th>Action</th>
-                  <th>Reject Reason</th>
                 </tr>
               </thead>
               <tbody>
@@ -46,16 +63,37 @@ const LeaveRequested = () => {
                     <tr key={leaveData.pk}>
                       <td>{leaveData.start_date}</td>
                       <td>{leaveData.end_date}</td>
+                      <td>{leaveData.days}</td>
                       <td>{leaveData.leave_type}</td>
                       <td>{leaveData.reason}</td>
+
                       <td>
-                        <button className="btn btn-success me-2">
-                          Approved
-                        </button>
-                        <button className="btn btn-danger">Reject</button>
-                      </td>
-                      <td>
-                        <input type="text" />
+                        {leaveData.status === 0 && (
+                          <>
+                            <Button
+                              className="btn btn-success me-2"
+                              onClick={() => handleAction(leaveData.id, 1)}
+                            >
+                              Approve
+                            </Button>
+                            <Button
+                              className="btn btn-danger"
+                              onClick={() => handleAction(leaveData.id, 2)}
+                            >
+                              Reject
+                            </Button>
+                          </>
+                        )}
+                        {leaveData.status === 1 && (
+                          <Button className="btn btn-warning" disabled>
+                            Approved
+                          </Button>
+                        )}
+                        {leaveData.status === 2 && (
+                          <Button className="btn btn-danger" disabled>
+                            Rejected
+                          </Button>
+                        )}
                       </td>
                     </tr>
                   ))

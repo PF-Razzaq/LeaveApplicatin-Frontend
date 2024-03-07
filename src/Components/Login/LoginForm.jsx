@@ -121,7 +121,7 @@ const LoginForm = () => {
   return (
     <>
       <Header />
-      <Container fluid className="bg-gradient">
+      <Container fluid className="bg-gradient mb-5">
         <Row className="justify-content-center align-items-center mt-5">
           <Col md={5}>
             <Form onSubmit={handleLogin} method="post">

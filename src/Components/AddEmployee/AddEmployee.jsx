@@ -75,8 +75,6 @@ const AddEmployee = (props) => {
 
   const editEmployee = (e) => {
     e.preventDefault();
-    console.log("formData1", formData.id);
-
     axios
       .put(`${API_URL}${formData.id}/`, formData)
       .then(() => {

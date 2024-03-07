@@ -2,9 +2,20 @@ import React from "react";
 import { Table, Row, Col } from "reactstrap";
 import ConfirmRemovalModal from "../ConfirmRemovalModal";
 import NewEmployeeModal from "../NewEmployeeModal";
+import DataTable from "react-data-table-component";
 
 const EmployeeList = (props) => {
   const { employees } = props;
+  const columns = [
+    { name: "First Name", selector: (row) => row.first_name },
+    { name: "Last Name", selector: (row) => row.last_name },
+    { name: "Email", selector: (row) => row.email },
+    { name: "Password", selector: (row) => row.password },
+    { name: "Birthday", selector: (row) => row.birthday },
+    { name: "Department", selector: (row) => row.department },
+    { name: "Role", selector: (row) => row.role },
+    { name: "Action", selector: (row) => row.status },
+  ];
   return (
     <>
       <Table dark>

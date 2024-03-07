@@ -18,18 +18,20 @@ const ApplyLeave = (props) => {
     id: 0,
     start_date: "",
     end_date: "",
+    days: "",
     leave_type: "",
     reason: "",
   });
 
   useEffect(() => {
     if (props.apply_leave) {
-      const { id, start_date, end_date, leave_type, reason } =
+      const { id, start_date, end_date, days, leave_type, reason } =
         props.apply_leave;
       setFormData({
         id,
         start_date,
         end_date,
+        days,
         leave_type,
         reason,
       });
@@ -38,6 +40,29 @@ const ApplyLeave = (props) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handeDateChange = (date, fieldName) => {
+    setFormData({
+      ...formData,
+      [fieldName]: date,
+      days: calculateDays(formData.start_date, date),
+    });
+  };
+
+  const calculateDays = (startDate, endDate) => {
+    const days = Array.from(
+      {
+        length:
+          (new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24) + 1,
+      },
+      (_, index) => {
+        const currentDate = new Date(startDate);
+        currentDate.setDate(currentDate.getDate() + index);
+        return currentDate.getDay() !== 6 && currentDate.getDay() !== 0 ? 1 : 0;
+      }
+    ).reduce((acc, day) => acc + day, 0);
+    return days;
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -75,7 +100,9 @@ const ApplyLeave = (props) => {
                 name="start_date"
                 id="start_date"
                 value={defaultIfEmpty(formData.start_date)}
-                onChange={handleChange}
+                onChange={(e) => {
+                  handeDateChange(e.target.value, "start_date");
+                }}
                 required
               />
             </FormGroup>
@@ -88,8 +115,23 @@ const ApplyLeave = (props) => {
                 name="end_date"
                 id="end_date"
                 value={defaultIfEmpty(formData.end_date)}
-                onChange={handleChange}
+                onChange={(e) => {
+                  handeDateChange(e.target.value, "end_date");
+                }}
                 required
+              />
+            </FormGroup>
+          </Col>
+          <Col md={12}>
+            <FormGroup>
+              <Label for="days">Days</Label>
+              <Input
+                type="text"
+                name="days"
+                id="days"
+                value={formData.days}
+                required
+                readOnly
               />
             </FormGroup>
           </Col>
