@@ -5,6 +5,7 @@ import axios from "axios";
 
 const LeaveRequested = () => {
   const [leaveData, setLeaveData] = useState([]);
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -19,25 +20,30 @@ const LeaveRequested = () => {
     fetchData();
   }, []);
 
-  const handleAction = async (id, newStatus) => {
+  const handleAction = async (id, newStatus, rejectionStatus) => {
+    console.log(
+      "id, newStatus, rejectionStatus",
+      id,
+      newStatus,
+      rejectionStatus
+    );
     try {
       const existingLeaveData = leaveData.find((data) => data.id === id);
-      console.log("existingLeaveData", existingLeaveData);
       const statusUpdate = {
-        status: newStatus,
+        status: newStatus !== null ? newStatus : existingLeaveData.status,
         start_date: existingLeaveData.start_date,
         end_date: existingLeaveData.end_date,
         leave_type: existingLeaveData.leave_type,
         reason: existingLeaveData.reason,
+        reject_reason:
+          rejectionStatus !== null ? rejectionStatus : existingLeaveData.reject,
       };
-      console.log("statusUpdate", statusUpdate);
+
       const response = await axios.put(`${API_URL_LEAVE}${id}`, statusUpdate);
-      console.log("LEAVEDATA76", response);
 
       const updatedResponse = await axios.get(API_URL_LEAVE);
-      console.log("LEAVEDATA", updatedResponse);
-
       setLeaveData(updatedResponse.data);
+      setShow(!show);
     } catch (error) {
       console.error("Error:", error.response || error.message || error);
     }
@@ -55,8 +61,10 @@ const LeaveRequested = () => {
                   <th>End Date</th>
                   <th>Days</th>
                   <th>Leave Type</th>
-                  <th>Reason</th>
-                  <th>Action</th>
+                  <th>Status</th>
+                  {/* <th>Reason</th> */}
+                  {show && <th>Action</th>}
+                  {show && <th>Reject Reason</th>}
                 </tr>
               </thead>
               <tbody>
@@ -73,26 +81,36 @@ const LeaveRequested = () => {
                       <td>{leaveData.end_date}</td>
                       <td>{leaveData.days}</td>
                       <td>{leaveData.leave_type}</td>
-                      <td>{leaveData.reason}</td>
-
                       <td>
-                        {leaveData.status === 0 && (
-                          <>
-                            <Button
-                              className="btn btn-success me-2"
-                              onClick={() => handleAction(leaveData.id, 1)}
-                            >
-                              Approve
-                            </Button>
-                            <Button
-                              className="btn btn-danger"
-                              onClick={() => handleAction(leaveData.id, 2)}
-                            >
-                              Reject
-                            </Button>
-                          </>
-                        )}
-                        {leaveData.status === 1 && (
+                        {leaveData.status === 0 && <td>Pending</td>}
+                        {leaveData.status === 1 && <td>Approved</td>}
+                        {leaveData.status === 2 && <td>Rejected</td>}
+                      </td>
+                      {/* <td>{leaveData.reason}</td> */}
+
+                      {show && (
+                        <td>
+                          {leaveData.status === 0 && (
+                            <>
+                              <Button
+                                className="btn btn-success me-2"
+                                onClick={() =>
+                                  handleAction(leaveData.id, 1, null)
+                                }
+                              >
+                                Approve
+                              </Button>
+                              <Button
+                                className="btn btn-danger"
+                                onClick={() =>
+                                  handleAction(leaveData.id, 2, null)
+                                }
+                              >
+                                Reject
+                              </Button>
+                            </>
+                          )}
+                          {/* {leaveData.status === 1 && (
                           <Button className="btn btn-warning" disabled>
                             Approved
                           </Button>
@@ -101,8 +119,19 @@ const LeaveRequested = () => {
                           <Button className="btn btn-danger" disabled>
                             Rejected
                           </Button>
-                        )}
-                      </td>
+                        )} */}
+                        </td>
+                      )}
+                      {show && (
+                        <td>
+                          <input
+                            type="text"
+                            onBlur={(e) => {
+                              handleAction(leaveData.id, null, e.target.value);
+                            }}
+                          />
+                        </td>
+                      )}
                     </tr>
                   ))
                 )}

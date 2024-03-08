@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Row, Col, Button } from "reactstrap";
+import { Table, Row, Col } from "reactstrap";
 import { API_URL_LEAVE } from "../Api/api";
 import axios from "axios";
 const Leave = (props) => {
@@ -30,7 +30,7 @@ const Leave = (props) => {
                   <th>End Date</th>
                   <th>Days</th>
                   <th>Leave Type</th>
-                  <th>Reason</th>
+                  <th>Reject Reason</th>
                   <th>Status</th>
                 </tr>
               </thead>
@@ -48,21 +48,11 @@ const Leave = (props) => {
                       <td>{leaveData.end_date}</td>
                       <td>{leaveData.days}</td>
                       <td>{leaveData.leave_type}</td>
-                      <td>{leaveData.reason}</td>
+                      <td>{leaveData.reject_reason}</td>
                       <td>
-                        {leaveData.status === 0 && (
-                          <Button className="btn btn-warning">Padding</Button>
-                        )}
-                        {leaveData.status === 1 && (
-                          <Button className="btn btn-success" disabled>
-                            Approved
-                          </Button>
-                        )}
-                        {leaveData.status === 2 && (
-                          <Button className="btn btn-danger" disabled>
-                            Rejected
-                          </Button>
-                        )}
+                        {leaveData.status === 0 && <td>Pending</td>}
+                        {leaveData.status === 1 && <td>Approved</td>}
+                        {leaveData.status === 2 && <td>Rejected</td>}
                       </td>
                     </tr>
                   ))

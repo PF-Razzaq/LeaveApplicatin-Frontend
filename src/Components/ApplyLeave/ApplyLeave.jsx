@@ -66,18 +66,13 @@ const ApplyLeave = (props) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("formData0", formData);
 
     try {
-      console.log("formData1", formData);
       await axios.post(API_URL_LEAVE, formData);
-      console.log("formData2", formData);
       props.resetState();
       props.toggle();
       console.log("Data submitted successfully:");
     } catch (error) {
-      console.log("formData3", formData);
-
       props.resetState();
       console.error("Error submitting data:", error);
     }
