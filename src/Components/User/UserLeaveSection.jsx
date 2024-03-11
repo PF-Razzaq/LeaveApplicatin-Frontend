@@ -27,7 +27,7 @@ const UserLeaveSection = (props) => {
               cursor: "pointer",
             }}
             onClick={() => {
-              navigate("/useleaverecord");
+              navigate("/userleaverecord");
             }}
           >
             Leave Applied {leaves.length}

@@ -63,8 +63,8 @@ const LeaveRequested = () => {
                   <th>Leave Type</th>
                   <th>Status</th>
                   {/* <th>Reason</th> */}
-                  {show && <th>Action</th>}
-                  {show && <th>Reject Reason</th>}
+                  <th>Action</th>
+                  <th>Reject Reason</th>
                 </tr>
               </thead>
               <tbody>
@@ -88,29 +88,28 @@ const LeaveRequested = () => {
                       </td>
                       {/* <td>{leaveData.reason}</td> */}
 
-                      {show && (
-                        <td>
-                          {leaveData.status === 0 && (
-                            <>
-                              <Button
-                                className="btn btn-success me-2"
-                                onClick={() =>
-                                  handleAction(leaveData.id, 1, null)
-                                }
-                              >
-                                Approve
-                              </Button>
-                              <Button
-                                className="btn btn-danger"
-                                onClick={() =>
-                                  handleAction(leaveData.id, 2, null)
-                                }
-                              >
-                                Reject
-                              </Button>
-                            </>
-                          )}
-                          {/* {leaveData.status === 1 && (
+                      <td>
+                        {leaveData.status === 0 && (
+                          <>
+                            <Button
+                              className="btn btn-success me-2"
+                              onClick={() =>
+                                handleAction(leaveData.id, 1, null)
+                              }
+                            >
+                              Approve
+                            </Button>
+                            <Button
+                              className="btn btn-danger"
+                              onClick={() =>
+                                handleAction(leaveData.id, 2, null)
+                              }
+                            >
+                              Reject
+                            </Button>
+                          </>
+                        )}
+                        {/* {leaveData.status === 1 && (
                           <Button className="btn btn-warning" disabled>
                             Approved
                           </Button>
@@ -120,18 +119,16 @@ const LeaveRequested = () => {
                             Rejected
                           </Button>
                         )} */}
-                        </td>
-                      )}
-                      {show && (
-                        <td>
-                          <input
-                            type="text"
-                            onBlur={(e) => {
-                              handleAction(leaveData.id, null, e.target.value);
-                            }}
-                          />
-                        </td>
-                      )}
+                      </td>
+                      <td>
+                        <input
+                          type="text"
+                          onBlur={(e) => {
+                            e.preventDefault();
+                            handleAction(leaveData.id, null, e.target.value);
+                          }}
+                        />
+                      </td>
                     </tr>
                   ))
                 )}

@@ -69,7 +69,7 @@ const LoginForm = () => {
           `Welcome ${matchingAdmin.first_name} ${matchingAdmin.last_name}`,
           {
             position: "top-center",
-            autoClose: 2000,
+            autoClose: 1000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -85,7 +85,7 @@ const LoginForm = () => {
           `Welcome ${matchingUser.first_name} ${matchingUser.last_name}`,
           {
             position: "top-center",
-            autoClose: 2000,
+            autoClose: 1000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -97,9 +97,9 @@ const LoginForm = () => {
         );
         navigate("/user");
       } else {
-        toast.success(`Invalid credentials. Please try again.`, {
+        toast.error(`Invalid credentials. Please try again.`, {
           position: "top-center",
-          autoClose: 2000,
+          autoClose: 1000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,

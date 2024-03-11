@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL_LEAVE } from "../Api/api";
+import { Flip, Slide, toast } from "react-toastify";
 import {
   Container,
   Form,
@@ -12,6 +13,7 @@ import {
   Button,
 } from "reactstrap";
 import "./ApplyLeave.css";
+import { useNavigate } from "react-router-dom";
 
 const ApplyLeave = (props) => {
   const [formData, setFormData] = useState({
@@ -37,6 +39,8 @@ const ApplyLeave = (props) => {
       });
     }
   }, [props.apply_leave]);
+
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -66,12 +70,22 @@ const ApplyLeave = (props) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       await axios.post(API_URL_LEAVE, formData);
+      toast.success(`Successfully Added Leave`, {
+        position: "top-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Flip,
+      });
       props.resetState();
       props.toggle();
-      console.log("Data submitted successfully:");
+      window.location.reload();
     } catch (error) {
       props.resetState();
       console.error("Error submitting data:", error);
