@@ -4,7 +4,7 @@ import { API_URL_LEAVE } from "../Api/api";
 import axios from "axios";
 const Leave = (props) => {
   const [leaveData, setLeaveData] = useState([]);
-  // const storedLeaveData = JSON.parse(sessionStorage.getItem("leaveData"));
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -17,10 +17,6 @@ const Leave = (props) => {
 
     fetchData();
   }, []);
-
-  // const userIdsFromStoredLeaveData = storedLeaveData
-  //   ? storedLeaveData.map((data) => data.id)
-  //   : [];
 
   return (
     <>
@@ -47,8 +43,8 @@ const Leave = (props) => {
                   </tr>
                 ) : (
                   leaveData.map((leaveData) => (
-                    <tr key={leaveData.id}>
-                      <td>{leaveData.start_date}</td>
+                    <tr key={leaveData.pk}>
+                      <td>{leaveData.employee}</td>
                       <td>{leaveData.end_date}</td>
                       <td>{leaveData.days}</td>
                       <td>{leaveData.leave_type}</td>

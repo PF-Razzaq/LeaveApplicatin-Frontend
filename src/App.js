@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Login from "./Components/Login/LoginForm";
 import Home from "./Components/Home/Home";
 import { ToastContainer } from "react-toastify";
@@ -7,20 +7,39 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import User from "./Components/User/User";
 import UserRecord from "./Components/User/UserRecord";
 import UserLeaveRecord from "./Components/User/UserLeaveRecord";
+import Footer from "./Components/Footer/Footer";
 
 const App = () => {
+  const [loggedInUser, setLoggedInUser] = useState(null);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    console.log("storedUser", storedUser);
+    if (storedUser) {
+      setLoggedInUser(storedUser);
+    }
+  }, []);
+
+  console.log("loggedInUser", loggedInUser);
   return (
     <>
       <ToastContainer />
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <>
+            {JSON.parse(localStorage.getItem("loggedInUser")) && (
+              <>
+                <Route path="/home" element={<Home />} />
+                <Route path="/user" element={<User />} />
+                <Route path="/userrecord" element={<UserRecord />} />
+                <Route path="/userleaverecord" element={<UserLeaveRecord />} />
+              </>
+            )}
+          </>
           <Route path="*" element={<Navigate to="/login" />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/user" element={<User />} />
-          <Route path="/userrecord" element={<UserRecord />} />
-          <Route path="/userleaverecord" element={<UserLeaveRecord />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </>
   );

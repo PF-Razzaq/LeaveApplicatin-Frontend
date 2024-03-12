@@ -53,6 +53,7 @@ const LoginForm = () => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+
     try {
       const matchingAdmin = employee.find(
         (data) =>
@@ -64,37 +65,13 @@ const LoginForm = () => {
         (data) =>
           data.email === formData.email && data.password === formData.password
       );
+
+      let loggedInUser = null;
+
       if (matchingAdmin) {
-        toast.success(
-          `Welcome ${matchingAdmin.first_name} ${matchingAdmin.last_name}`,
-          {
-            position: "top-center",
-            autoClose: 1000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Flip,
-          }
-        );
         navigate("/home");
       } else if (matchingUser) {
-        toast.success(
-          `Welcome ${matchingUser.first_name} ${matchingUser.last_name}`,
-          {
-            position: "top-center",
-            autoClose: 1000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            transition: Flip,
-          }
-        );
+        loggedInUser = matchingUser;
         navigate("/user");
       } else {
         toast.error(`Invalid credentials. Please try again.`, {
@@ -111,6 +88,10 @@ const LoginForm = () => {
         setError("Invalid credentials. Please try again.");
         throw new Error("Invalid Credentials");
       }
+
+      localStorage.setItem("allEmployees", JSON.stringify(employee));
+
+      localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
     } catch (error) {
       console.error("Error occurred while logging in", error);
     } finally {
