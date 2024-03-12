@@ -44,7 +44,7 @@ const Leave = (props) => {
                 ) : (
                   leaveData.map((leaveData) => (
                     <tr key={leaveData.pk}>
-                      <td>{leaveData.employee}</td>
+                      <td>{leaveData.start_date}</td>
                       <td>{leaveData.end_date}</td>
                       <td>{leaveData.days}</td>
                       <td>{leaveData.leave_type}</td>

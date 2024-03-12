@@ -83,8 +83,8 @@ const Sidebar = () => {
                     theme: "light",
                     transition: Zoom,
                   });
-                  localStorage.removeItem("allEmployees");
-                  localStorage.removeItem("loggedInUser");
+                  // localStorage.removeItem("allEmployees");
+                  // localStorage.removeItem("loggedInUser");
                   navigate("/");
                 }}
               >

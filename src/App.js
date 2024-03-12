@@ -10,17 +10,6 @@ import UserLeaveRecord from "./Components/User/UserLeaveRecord";
 import Footer from "./Components/Footer/Footer";
 
 const App = () => {
-  const [loggedInUser, setLoggedInUser] = useState(null);
-
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("loggedInUser"));
-    console.log("storedUser", storedUser);
-    if (storedUser) {
-      setLoggedInUser(storedUser);
-    }
-  }, []);
-
-  console.log("loggedInUser", loggedInUser);
   return (
     <>
       <ToastContainer />
@@ -28,7 +17,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <>
-            {JSON.parse(localStorage.getItem("loggedInUser")) && (
+            {JSON.parse(localStorage.getItem("allEmployees")) && (
               <>
                 <Route path="/home" element={<Home />} />
                 <Route path="/user" element={<User />} />
