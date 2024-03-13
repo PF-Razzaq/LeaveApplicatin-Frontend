@@ -8,27 +8,35 @@ import User from "./Components/User/User";
 import UserRecord from "./Components/User/UserRecord";
 import UserLeaveRecord from "./Components/User/UserLeaveRecord";
 import Footer from "./Components/Footer/Footer";
+import Layout from "./Components/Layout";
+import LeaveRequested from "./Components/LeaveRequested/LeaveRequested";
 
 const App = () => {
   return (
     <>
       <ToastContainer />
       <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <>
-            {JSON.parse(localStorage.getItem("allEmployees")) && (
-              <>
-                <Route path="/home" element={<Home />} />
-                <Route path="/user" element={<User />} />
-                <Route path="/userrecord" element={<UserRecord />} />
-                <Route path="/userleaverecord" element={<UserLeaveRecord />} />
-              </>
-            )}
-          </>
-          <Route path="*" element={<Navigate to="/login" />} />
-        </Routes>
-        <Footer />
+        <Layout>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <>
+              {JSON.parse(localStorage.getItem("allEmployees")) && (
+                <>
+                  <Route path="/home" element={<Home />} />
+                  <Route path="/user" element={<User />} />
+                  <Route path="/userrecord" element={<UserRecord />} />
+                  <Route path="/leaverequested" element={<LeaveRequested />} />
+                  <Route
+                    path="/userleaverecord"
+                    element={<UserLeaveRecord />}
+                  />
+                </>
+              )}
+            </>
+            <Route path="*" element={<Navigate to="/login" />} />
+          </Routes>
+          <Footer />
+        </Layout>
       </BrowserRouter>
     </>
   );

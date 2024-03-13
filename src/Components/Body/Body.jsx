@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./Body.css";
 import { Container, Row, Col } from "reactstrap";
-import EmployeeList from "../EmployeeList/EmployeeList";
-import NewEmployeeModal from "../NewEmployeeModal";
+
 import axios from "axios";
 import { API_URL, API_URL_LEAVE } from "../Api/api";
 import { useNavigate } from "react-router-dom";
-import LeaveRequested from "../LeaveRequested/LeaveRequested";
 
 const Body = (props) => {
   const [employees, setEmployees] = useState([]);
@@ -61,7 +59,7 @@ const Body = (props) => {
                 <div
                   className="my-div"
                   onClick={() => {
-                    setShow(!show);
+                    navigate("/leaverequested");
                   }}
                 >
                   Leave Requested {leaves.length}
@@ -71,7 +69,6 @@ const Body = (props) => {
           </Container>
         </div>
       </main>
-      {!show && <LeaveRequested />}
     </div>
   );
 };

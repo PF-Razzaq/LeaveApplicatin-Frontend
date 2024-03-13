@@ -27,6 +27,7 @@ const LoginForm = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  // const [loggedInUser, setLoggedInUser] = useState(null);
 
   const getEmployees = async () => {
     try {
@@ -72,6 +73,7 @@ const LoginForm = () => {
         navigate("/home");
       } else if (matchingUser) {
         loggedInUser = matchingUser;
+        // setLoggedInUser(matchingUser);
         navigate("/user");
       } else {
         toast.error(`Invalid credentials. Please try again.`, {

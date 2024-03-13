@@ -17,7 +17,9 @@ const Leave = (props) => {
 
     fetchData();
   }, []);
-
+  const storedUser = localStorage.getItem("loggedInUser");
+  const loggedInUser = storedUser ? JSON.parse(storedUser) : null;
+  console.log("Logged In User:", loggedInUser.id);
   return (
     <>
       <div>
@@ -42,20 +44,27 @@ const Leave = (props) => {
                     </td>
                   </tr>
                 ) : (
-                  leaveData.map((leaveData) => (
-                    <tr key={leaveData.pk}>
-                      <td>{leaveData.start_date}</td>
-                      <td>{leaveData.end_date}</td>
-                      <td>{leaveData.days}</td>
-                      <td>{leaveData.leave_type}</td>
-                      <td>{leaveData.reject_reason}</td>
-                      <td>
-                        {leaveData.status === 0 && <td>Pending</td>}
-                        {leaveData.status === 1 && <td>Approved</td>}
-                        {leaveData.status === 2 && <td>Rejected</td>}
-                      </td>
-                    </tr>
-                  ))
+                  leaveData.map(
+                    (leaveData) =>
+                      leaveData.employee === loggedInUser.id && (
+                        <tr key={leaveData.pk}>
+                          <td>{leaveData.start_date}</td>
+                          {console.log(
+                            "leaveData.employee",
+                            leaveData.employee
+                          )}
+                          <td>{leaveData.end_date}</td>
+                          <td>{leaveData.days}</td>
+                          <td>{leaveData.leave_type}</td>
+                          <td>{leaveData.reject_reason}</td>
+                          <td>
+                            {leaveData.status === 0 && <td>Pending</td>}
+                            {leaveData.status === 1 && <td>Approved</td>}
+                            {leaveData.status === 2 && <td>Rejected</td>}
+                          </td>
+                        </tr>
+                      )
+                  )
                 )}
               </tbody>
             </Table>

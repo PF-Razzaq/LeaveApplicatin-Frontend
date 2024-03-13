@@ -11,10 +11,10 @@ const UserLeaveSection = (props) => {
         <div
           className="my-div"
           style={{
-            width: "380px",
+            width: "420px",
             backgroundColor: "gray",
             display: "flex",
-            padding: "80px 60px",
+            padding: "80px 20px",
             margin: "30px 0px 0px 50px",
             flexDirection: "column",
             justifyContent: "center",
@@ -30,7 +30,8 @@ const UserLeaveSection = (props) => {
               navigate("/userleaverecord");
             }}
           >
-            Leave Applied {leaves.length}
+            Leave Applied & Show Your Leaves
+            {/* {leaves.length} */}
           </h4>
         </div>
       </Col>

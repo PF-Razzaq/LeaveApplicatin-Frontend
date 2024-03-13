@@ -2,13 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./Sidebar.css";
 import { Zoom, toast } from "react-toastify";
 
-import { Col, Container, Row } from "reactstrap";
-
 import { MdDashboard } from "react-icons/md";
 import { RiPagesLine } from "react-icons/ri";
 import { Button } from "reactstrap";
 import { MdPeopleAlt } from "react-icons/md";
-import EmployeeList from "../EmployeeList/EmployeeList";
 import axios from "axios";
 import { API_URL } from "../Api/api";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 const Sidebar = () => {
   const navigate = useNavigate();
   const [employees, setEmployees] = useState([]);
+  const [show, setShow] = useState(false);
 
   const getEmployees = async () => {
     try {
@@ -54,7 +52,13 @@ const Sidebar = () => {
               </div>
               <div className="leave">
                 <RiPagesLine className="icon" />
-                <h4>Leave Section</h4>
+                <h4
+                  onClick={() => {
+                    navigate("/leaverequested");
+                  }}
+                >
+                  Leave Section
+                </h4>
               </div>
               {matchingAdmin && (
                 <div
@@ -83,8 +87,8 @@ const Sidebar = () => {
                     theme: "light",
                     transition: Zoom,
                   });
-                  // localStorage.removeItem("allEmployees");
-                  // localStorage.removeItem("loggedInUser");
+                  localStorage.removeItem("allEmployees");
+                  localStorage.removeItem("loggedInUser");
                   navigate("/");
                 }}
               >
