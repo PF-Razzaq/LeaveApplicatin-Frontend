@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <div className="text-center" style={{ marginTop: "-30px", color: "#111" }}>
       {" "}
-      Copyright @ Leave Management System: {date}
+      Copyright @ Leave Management System {date}
     </div>
   );
 };

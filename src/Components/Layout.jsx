@@ -13,9 +13,9 @@ const Layout = ({ children }) => {
   const getPageTitle = (path) => {
     switch (path) {
       case "/login":
-        return "login";
+        return "Login";
       case "/home":
-        return "home";
+        return "Home";
       case "/userrecord":
         return "User Record";
       case "/user":

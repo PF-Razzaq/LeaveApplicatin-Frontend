@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./Sidebar.css";
 import { Zoom, toast } from "react-toastify";
-
-import { Col, Container, Row } from "reactstrap";
-
 import { MdDashboard } from "react-icons/md";
 import { RiPagesLine } from "react-icons/ri";
 import { Button } from "reactstrap";
-import { MdPeopleAlt } from "react-icons/md";
-import EmployeeList from "../EmployeeList/EmployeeList";
 import axios from "axios";
 import { API_URL } from "../Api/api";
 import { useNavigate } from "react-router-dom";
@@ -37,6 +32,8 @@ const Sidebar = () => {
   useEffect(() => {
     resetState();
   }, []);
+  const loggedInUser = localStorage.getItem("loggedInUser");
+  const getUser = loggedInUser ? JSON.parse(loggedInUser) : "";
   return (
     <>
       <div className="main-div">
@@ -63,6 +60,10 @@ const Sidebar = () => {
               </div>
             </main>
             <div className="logout">
+              <div>Logged in as:</div>
+              <div>
+                {getUser.first_name} {getUser.last_name}
+              </div>
               <Button
                 color="danger"
                 onClick={() => {

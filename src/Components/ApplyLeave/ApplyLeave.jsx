@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 const ApplyLeave = (props) => {
   const [formData, setFormData] = useState({
     id: 0,
+    employee: "",
     start_date: "",
     end_date: "",
     days: "",
@@ -27,10 +28,11 @@ const ApplyLeave = (props) => {
 
   useEffect(() => {
     if (props.apply_leave) {
-      const { id, start_date, end_date, days, leave_type, reason } =
+      const { id, employee, start_date, end_date, days, leave_type, reason } =
         props.apply_leave;
       setFormData({
         id,
+        employee,
         start_date,
         end_date,
         days,
@@ -39,7 +41,8 @@ const ApplyLeave = (props) => {
       });
     }
   }, [props.apply_leave]);
-
+  const storedUser = localStorage.getItem("loggedInUser");
+  const loggedInUser = storedUser ? JSON.parse(storedUser) : null;
   const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -101,6 +104,25 @@ const ApplyLeave = (props) => {
     <Container>
       <Form onSubmit={handleSubmit} method="post">
         <Row>
+          <Col md={12}>
+            <FormGroup>
+              <Label for="employee">Employee Id</Label>
+              <Input
+                type="text"
+                name="employee"
+                maxLength={3}
+                id="employee"
+                value={defaultIfEmpty(formData.employee)}
+                onChange={(e) => {
+                  handeDateChange(e.target.value, "employee");
+                }}
+                onInput={(e) => {
+                  e.target.value = e.target.value.replace(/[^0-9-]/g, "");
+                }}
+                required
+              />
+            </FormGroup>
+          </Col>
           <Col md={12}>
             <FormGroup>
               <Label for="start_date">Start Date</Label>

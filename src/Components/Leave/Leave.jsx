@@ -19,7 +19,6 @@ const Leave = (props) => {
   }, []);
   const storedUser = localStorage.getItem("loggedInUser");
   const loggedInUser = storedUser ? JSON.parse(storedUser) : null;
-  console.log("Logged In User:", loggedInUser.id);
   return (
     <>
       <div>
@@ -49,10 +48,6 @@ const Leave = (props) => {
                       leaveData.employee === loggedInUser.id && (
                         <tr key={leaveData.pk}>
                           <td>{leaveData.start_date}</td>
-                          {console.log(
-                            "leaveData.employee",
-                            leaveData.employee
-                          )}
                           <td>{leaveData.end_date}</td>
                           <td>{leaveData.days}</td>
                           <td>{leaveData.leave_type}</td>

@@ -27,7 +27,6 @@ const LoginForm = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  // const [loggedInUser, setLoggedInUser] = useState(null);
 
   const getEmployees = async () => {
     try {
@@ -40,7 +39,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     getEmployees();
-  }, []); // Empty dependency array ensures the effect runs only once on mount
+  }, []);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -66,14 +65,41 @@ const LoginForm = () => {
         (data) =>
           data.email === formData.email && data.password === formData.password
       );
-
       let loggedInUser = null;
-
+      let loggedInAdmin = null;
       if (matchingAdmin) {
+        loggedInAdmin = matchingAdmin;
+        toast.success(
+          `Welcome ${matchingAdmin.first_name} ${matchingAdmin.last_name}.`,
+          {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Slide,
+          }
+        );
         navigate("/home");
       } else if (matchingUser) {
         loggedInUser = matchingUser;
-        // setLoggedInUser(matchingUser);
+        toast.success(
+          `Welcome ${matchingUser.first_name} ${matchingUser.last_name}`,
+          {
+            position: "top-center",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Slide,
+          }
+        );
         navigate("/user");
       } else {
         toast.error(`Invalid credentials. Please try again.`, {
@@ -90,17 +116,15 @@ const LoginForm = () => {
         setError("Invalid credentials. Please try again.");
         throw new Error("Invalid Credentials");
       }
-
       localStorage.setItem("allEmployees", JSON.stringify(employee));
-
       localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser));
+      localStorage.setItem("loggedInAdmin", JSON.stringify(loggedInAdmin));
     } catch (error) {
       console.error("Error occurred while logging in", error);
     } finally {
       setLoading(false);
     }
   };
-
   return (
     <>
       <Header />

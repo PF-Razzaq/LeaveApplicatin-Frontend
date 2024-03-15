@@ -35,6 +35,9 @@ const Sidebar = () => {
   useEffect(() => {
     resetState();
   }, []);
+
+  const loggedInAdmin = localStorage.getItem("loggedInAdmin");
+  const getAdmin = loggedInAdmin ? JSON.parse(loggedInAdmin) : "";
   return (
     <>
       <div className="main-div">
@@ -73,6 +76,10 @@ const Sidebar = () => {
               )}
             </main>
             <div className="logout">
+              <div>Logged in as:</div>
+              <div>
+                {getAdmin.first_name} {getAdmin.last_name}
+              </div>
               <Button
                 color="danger"
                 onClick={() => {
@@ -89,6 +96,7 @@ const Sidebar = () => {
                   });
                   localStorage.removeItem("allEmployees");
                   localStorage.removeItem("loggedInUser");
+                  localStorage.removeItem("loggedInAdmin");
                   navigate("/");
                 }}
               >

@@ -27,6 +27,7 @@ const EmployeeList = (props) => {
             <Table>
               <thead>
                 <tr>
+                  <th>Employee Id</th>
                   <th>First Name</th>
                   <th>Last Name</th>
                   <th>Email</th>
@@ -47,6 +48,7 @@ const EmployeeList = (props) => {
                 ) : (
                   employees.map((employee) => (
                     <tr key={employee.id}>
+                      <td>{employee.id}</td>
                       <td>{employee.first_name}</td>
                       <td>{employee.last_name}</td>
                       <td>{employee.email}</td>
