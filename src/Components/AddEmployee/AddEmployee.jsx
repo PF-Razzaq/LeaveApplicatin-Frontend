@@ -22,7 +22,7 @@ const AddEmployee = (props) => {
     birthday: "",
     department: "",
     role: "",
-    employee_id: "",
+    // employee_id: "",
   });
 
   useEffect(() => {
@@ -36,7 +36,7 @@ const AddEmployee = (props) => {
         birthday,
         department,
         role,
-        employee_id,
+        // employee_id,
       } = props.employee;
       setFormData({
         id,
@@ -47,7 +47,7 @@ const AddEmployee = (props) => {
         birthday,
         department,
         role,
-        employee_id,
+        // employee_id,
       });
     }
   }, [props.employee]);
@@ -204,19 +204,6 @@ const AddEmployee = (props) => {
                 <option value="Tester">Tester</option>
                 <option value="Admin">Admin</option>
               </Input>
-            </FormGroup>
-          </Col>
-          <Col md={12}>
-            <FormGroup>
-              <Label for="employee_id">Employee ID</Label>
-              <Input
-                type="text"
-                name="employee_id"
-                id="employee_id"
-                value={defaultIfEmpty(formData.employee_id)}
-                onChange={handleChange}
-                required
-              />
             </FormGroup>
           </Col>
         </Row>

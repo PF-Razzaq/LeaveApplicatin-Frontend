@@ -32,7 +32,7 @@ const UserRecord = () => {
       <Header />
       <div className="d-flex">
         <Sidebar />
-        <Container>
+        <Container style={{ overflow: "hidden" }}>
           <button
             onClick={() => {
               navigate("/home");

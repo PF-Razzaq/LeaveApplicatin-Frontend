@@ -12,9 +12,9 @@ const EmployeeList = (props) => {
     { field: "first_name", headerName: "First Name", width: 150 },
     { field: "last_name", headerName: "Last Name", width: 150 },
     { field: "email", headerName: "Email", width: 200 },
-    // { field: "password", headerName: "Password", width: 150 },
-    // { field: "birthday", headerName: "Birthday", width: 150 },
-    // { field: "department", headerName: "Department", width: 150 },
+    { field: "password", headerName: "Password", width: 150 },
+    { field: "birthday", headerName: "Birthday", width: 150 },
+    { field: "department", headerName: "Department", width: 150 },
     { field: "role", headerName: "Role", width: 150 },
     {
       field: "status",
@@ -42,7 +42,7 @@ const EmployeeList = (props) => {
   return (
     <>
       <div>
-        <div style={{ width: "90%", margin: "20px auto" }}>
+        <div style={{ width: "70%" }}>
           <div>
             <Typography variant="h5" gutterBottom>
               Employee Data
@@ -50,8 +50,9 @@ const EmployeeList = (props) => {
             <DataGrid
               rows={employees}
               columns={columns}
-              pageSizeOptions={[5]}
-              disableRowSelectionOnClick
+              pageSize={5}
+              autoHeight
+              disableSelectionOnClick
             />
           </div>
         </div>

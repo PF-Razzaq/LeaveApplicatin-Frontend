@@ -19,7 +19,6 @@ import { API_URL } from "../Api/api";
 
 const LoginForm = () => {
   const [employee, setEmployees] = useState([]);
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -27,6 +26,7 @@ const LoginForm = () => {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const getEmployees = async () => {
     try {
@@ -55,12 +55,13 @@ const LoginForm = () => {
     setError(null);
 
     try {
-      const matchingAdmin = employee.find(
-        (data) =>
+      const matchingAdmin = employee.find((data) => {
+        return (
           data.email === formData.email &&
           data.password === formData.password &&
           data.role === "Admin"
-      );
+        );
+      });
       const matchingUser = employee.find(
         (data) =>
           data.email === formData.email && data.password === formData.password

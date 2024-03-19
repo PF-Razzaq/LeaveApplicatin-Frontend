@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Table, Row, Col } from "reactstrap";
-import { API_URL_LEAVE } from "../Api/api";
+import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
+import { API_URL_LEAVE } from "../Api/api";
+
 const Leave = (props) => {
   const [leaveData, setLeaveData] = useState([]);
+  const storedUser = localStorage.getItem("loggedInUser");
+  const loggedInUser = storedUser ? JSON.parse(storedUser) : null;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -17,56 +20,36 @@ const Leave = (props) => {
 
     fetchData();
   }, []);
-  const storedUser = localStorage.getItem("loggedInUser");
-  const loggedInUser = storedUser ? JSON.parse(storedUser) : null;
+
+  const columns = [
+    { field: "start_date", headerName: "Start Date", width: 170 },
+    { field: "end_date", headerName: "End Date", width: 170 },
+    { field: "days", headerName: "Days", width: 150 },
+    { field: "leave_type", headerName: "Leave Type", width: 150 },
+    { field: "reject_reason", headerName: "Reject Reason", width: 200 },
+    {
+      field: "status",
+      headerName: "Status",
+      width: 130,
+      renderCell: (params) => (
+        <span>
+          {params.value === 0 && "Pending"}
+          {params.value === 1 && "Approved"}
+          {params.value === 2 && "Rejected"}
+        </span>
+      ),
+    },
+  ];
+
   return (
-    <>
-      <div>
-        <Row>
-          <Col md={12} className="m-auto mt-5">
-            <Table>
-              <thead>
-                <tr>
-                  <th>Start Date</th>
-                  <th>End Date</th>
-                  <th>Days</th>
-                  <th>Leave Type</th>
-                  <th>Reject Reason</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {!leaveData || leaveData.length <= 0 ? (
-                  <tr>
-                    <td colSpan="6" align="center">
-                      <b>Ops, no one here yet</b>
-                    </td>
-                  </tr>
-                ) : (
-                  leaveData.map(
-                    (leaveData) =>
-                      leaveData.employee === loggedInUser.id && (
-                        <tr key={leaveData.pk}>
-                          <td>{leaveData.start_date}</td>
-                          <td>{leaveData.end_date}</td>
-                          <td>{leaveData.days}</td>
-                          <td>{leaveData.leave_type}</td>
-                          <td>{leaveData.reject_reason}</td>
-                          <td>
-                            {leaveData.status === 0 && <td>Pending</td>}
-                            {leaveData.status === 1 && <td>Approved</td>}
-                            {leaveData.status === 2 && <td>Rejected</td>}
-                          </td>
-                        </tr>
-                      )
-                  )
-                )}
-              </tbody>
-            </Table>
-          </Col>
-        </Row>
-      </div>
-    </>
+    <div style={{ height: 250, width: "90%", margin: "50px auto" }}>
+      <DataGrid
+        rows={leaveData.filter((leave) => leave.employee === loggedInUser.id)}
+        columns={columns}
+        pageSize={5}
+        checkboxSelection={false}
+      />
+    </div>
   );
 };
 

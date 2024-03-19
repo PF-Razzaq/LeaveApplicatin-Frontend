@@ -30,8 +30,6 @@ const App = (props) => {
 
   const matchingAdmin = employees.find((data) => data.role === "Admin");
 
-  console.log("matchingAdmin", matchingAdmin);
-
   const matchingUser = JSON.parse(localStorage.getItem("loggedInUser"));
   return (
     <>
