@@ -12,6 +12,8 @@ import Layout from "./Components/Layout";
 import LeaveRequested from "./Components/LeaveRequested/LeaveRequested";
 import axios from "axios";
 import { API_URL } from "./index";
+import Item from "./Page/Item";
+import Cart from "./Page/Cart";
 
 const App = (props) => {
   const [employees, setEmployees] = useState([]);
@@ -34,6 +36,7 @@ const App = (props) => {
   return (
     <>
       <ToastContainer />
+
       <BrowserRouter>
         <Layout>
           <Routes>
@@ -65,7 +68,6 @@ const App = (props) => {
             <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
 
-          <Footer />
         </Layout>
       </BrowserRouter>
     </>

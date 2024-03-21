@@ -1,0 +1,5 @@
+@media screen and (max-width: 740px) {
+  .adminfooter {
+    display: none;
+  }
+}

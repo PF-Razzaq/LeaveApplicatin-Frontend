@@ -1,5 +1,6 @@
 .header {
   background: #0275d8;
+  overflow: hidden;
 }
 .header-container {
   display: flex;
@@ -11,4 +12,17 @@
   color: white;
   font-size: 30px;
   font-weight: 600;
+}
+
+/* Responsiveness */
+
+@media screen and (min-width: 425px) and (max-width: 740px) {
+  .header {
+    width: 800px;
+  }
+}
+@media screen and (max-width: 425px) {
+  .header {
+    width: 725px !important;
+  }
 }

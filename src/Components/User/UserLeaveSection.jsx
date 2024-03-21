@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Col } from "reactstrap";
+import "./UserLeaveSection.css";
 
 const UserLeaveSection = (props) => {
   const { leaves } = props;

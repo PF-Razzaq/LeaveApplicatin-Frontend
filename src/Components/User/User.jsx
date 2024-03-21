@@ -5,6 +5,8 @@ import Header from "../Header/Header";
 import SidebarUser from "../Sidebar/SidebarUser";
 import Leave from "../Leave/Leave";
 import UserLeaveSection from "./UserLeaveSection";
+import "./User.css";
+import Footer from "../Footer/Footer";
 
 const User = () => {
   const [leaves, setLeaves] = useState([]);
@@ -28,10 +30,15 @@ const User = () => {
 
   return (
     <>
-      <Header />
-      <div className="d-flex">
-        <SidebarUser />
-        <UserLeaveSection leaves={leaves} />
+      <div className="user">
+        <Header className="user-header" />
+        <div className="d-flex text-center ">
+          <SidebarUser />
+          <UserLeaveSection className="user-leave-record" leaves={leaves} />
+        </div>
+      </div>
+      <div className="userfooter">
+        <Footer />
       </div>
     </>
   );

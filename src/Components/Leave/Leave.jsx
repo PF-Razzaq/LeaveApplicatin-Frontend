@@ -22,6 +22,7 @@ const Leave = (props) => {
   }, []);
 
   const columns = [
+    { field: "employee", headerName: "ID  ", width: 100 },
     { field: "start_date", headerName: "Start Date", width: 170 },
     { field: "end_date", headerName: "End Date", width: 170 },
     { field: "days", headerName: "Days", width: 150 },
@@ -42,7 +43,10 @@ const Leave = (props) => {
   ];
 
   return (
-    <div style={{ height: 250, width: "90%", margin: "50px auto" }}>
+    <div
+      style={{ height: 380, width: "90%", margin: "50px auto" }}
+      className="userdatagrid"
+    >
       <DataGrid
         rows={leaveData.filter((leave) => leave.employee === loggedInUser.id)}
         columns={columns}

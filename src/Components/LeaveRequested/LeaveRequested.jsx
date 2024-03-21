@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Table, Row, Col, Button } from "reactstrap";
+import { Row, Col, Button, Table } from "reactstrap";
 import { API_URL_LEAVE } from "../Api/api";
 import axios from "axios";
 import Header from "../Header/Header";
@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 const LeaveRequested = () => {
   const navigate = useNavigate();
   const [leaveData, setLeaveData] = useState([]);
-  const [show, setShow] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,7 +46,6 @@ const LeaveRequested = () => {
 
       const updatedResponse = await axios.get(API_URL_LEAVE);
       setLeaveData(updatedResponse.data);
-      setShow(!show);
     } catch (error) {
       console.error("Error:", error.response || error.message || error);
     }
@@ -56,7 +54,6 @@ const LeaveRequested = () => {
   return (
     <>
       <Header />
-
       <div className="d-flex">
         <Sidebar />
         <Row style={{ width: "70%", margin: "50px auto" }}>
@@ -70,7 +67,7 @@ const LeaveRequested = () => {
               Back
             </button>
             <Col md={12} className="m-auto mt-5">
-              <Table>
+              <Table striped bordered hover>
                 <thead>
                   <tr>
                     <th>Start Date</th>
@@ -78,7 +75,6 @@ const LeaveRequested = () => {
                     <th>Days</th>
                     <th>Leave Type</th>
                     <th>Status</th>
-                    {/* <th>Reason</th> */}
                     <th>Action</th>
                     <th>Reject Reason</th>
                   </tr>
@@ -86,7 +82,7 @@ const LeaveRequested = () => {
                 <tbody>
                   {!leaveData || leaveData.length <= 0 ? (
                     <tr>
-                      <td colSpan="6" align="center">
+                      <td colSpan="7" align="center">
                         <b>Ops, no one here yet</b>
                       </td>
                     </tr>
@@ -98,16 +94,16 @@ const LeaveRequested = () => {
                         <td>{leaveData.days}</td>
                         <td>{leaveData.leave_type}</td>
                         <td>
-                          {leaveData.status === 0 && <td>Pending</td>}
-                          {leaveData.status === 1 && <td>Approved</td>}
-                          {leaveData.status === 2 && <td>Rejected</td>}
+                          {leaveData.status === 0 && <span>Pending</span>}
+                          {leaveData.status === 1 && <span>Approved</span>}
+                          {leaveData.status === 2 && <span>Rejected</span>}
                         </td>
-                        {/* <td>{leaveData.reason}</td> */}
                         <td>
                           {leaveData.status === 0 && (
                             <>
                               <Button
-                                className="btn btn-success me-2"
+                                variant="success"
+                                className="me-2"
                                 onClick={() =>
                                   handleAction(leaveData.id, 1, null)
                                 }
@@ -115,7 +111,7 @@ const LeaveRequested = () => {
                                 Approve
                               </Button>
                               <Button
-                                className="btn btn-danger"
+                                variant="danger"
                                 onClick={() =>
                                   handleAction(leaveData.id, 2, null)
                                 }
@@ -124,16 +120,6 @@ const LeaveRequested = () => {
                               </Button>
                             </>
                           )}
-                          {/* {leaveData.status === 1 && (
-                          <Button className="btn btn-warning" disabled>
-                            Approved
-                          </Button>
-                        )}
-                        {leaveData.status === 2 && (
-                          <Button className="btn btn-danger" disabled>
-                            Rejected
-                          </Button>
-                        )} */}
                         </td>
                         <td>
                           <input

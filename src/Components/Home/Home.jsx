@@ -15,6 +15,9 @@ const Home = () => {
           <Body />
         </div>
       </div>
+      <div className="adminfooter">
+        <Footer />
+      </div>
     </>
   );
 };

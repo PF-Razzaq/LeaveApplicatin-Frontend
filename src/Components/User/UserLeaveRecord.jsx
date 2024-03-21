@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import Leave from "../Leave/Leave";
 import axios from "axios";
 import NewLeaveModel from "../NewLeaveModel";
+import "./UserLeaveRecord.css";
 
 const UserLeaveRecord = (props) => {
   const [formData, setFormData] = useState([]);
@@ -31,8 +32,10 @@ const UserLeaveRecord = (props) => {
   return (
     <>
       <Header />
-      <div className="d-flex">
-        <SidebarUser />
+      <div className="d-flex" style={{ overflow: "hidden" }}>
+        <div className="usersidebar">
+          <SidebarUser />
+        </div>
         <Container md={12}>
           <Button
             onClick={() => {
@@ -42,7 +45,7 @@ const UserLeaveRecord = (props) => {
           >
             Back
           </Button>
-          <Row>
+          <Row className="userleaverecord">
             <Col>
               <Leave leaveData={formData} resetState={resetState} />
             </Col>

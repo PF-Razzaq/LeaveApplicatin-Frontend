@@ -38,3 +38,24 @@ main {
 .main-div .right {
   width: 100%;
 }
+
+@media screen and (min-width: 425px) and (max-width: 740px) {
+  .sidebar {
+    /* display: none; */
+    height: 100vh;
+    overflow: hidden;
+  }
+}
+@media screen and (min-width: 375px) and (max-width: 425px) {
+  .sidebar {
+    height: 100vh;
+    overflow: hidden;
+  }
+}
+@media screen and (max-width: 375px) {
+  .sidebar {
+    height: 100vh;
+
+    overflow: hidden;
+  }
+}
