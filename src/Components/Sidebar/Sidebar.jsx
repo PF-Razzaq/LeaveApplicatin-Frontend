@@ -76,8 +76,19 @@ const Sidebar = () => {
               )}
             </main>
             <div className="logout">
-              <div>Logged in as:</div>
-              <div>
+              <div
+                style={{
+                  fontWeight: "bold",
+                }}
+              >
+                Logged in as:
+              </div>
+              <div
+                style={{
+                  fontWeight: "bold",
+                  textTransform: "uppercase",
+                }}
+              >
                 {getAdmin.first_name} {getAdmin.last_name}
               </div>
               <Button

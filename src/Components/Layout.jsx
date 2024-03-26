@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
+import React, { lazy, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const Layout = ({ children }) => {
   const location = useLocation();
-
   useEffect(() => {
     const path = location.pathname;
     const pageTitle = getPageTitle(path);
@@ -19,11 +18,13 @@ const Layout = ({ children }) => {
       case "/userrecord":
         return "User Record";
       case "/user":
-        return "user";
+        return "User";
       case "/userleaverecord":
         return "User Leave Record";
       case "/leaverequested":
         return "Leave Requested";
+      case "/userProfile":
+        return "User Profile";
 
       default:
         break;

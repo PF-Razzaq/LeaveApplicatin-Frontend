@@ -3,23 +3,33 @@ import { Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import ConfirmRemovalModal from "../ConfirmRemovalModal";
 import NewEmployeeModal from "../NewEmployeeModal";
+import { Link } from "react-router-dom";
 
 const EmployeeList = (props) => {
   const { employees } = props;
 
   const columns = [
-    { field: "id", headerName: "Employee Id", width: 130 },
-    { field: "first_name", headerName: "First Name", width: 150 },
-    { field: "last_name", headerName: "Last Name", width: 150 },
-    { field: "email", headerName: "Email", width: 200 },
-    // { field: "password", headerName: "Password", width: 150 },
+    { field: "id", headerName: <strong>Employee Id</strong>, width: 110 },
+    {
+      field: "first_name",
+      headerName: <strong>First Name</strong>,
+      width: 150,
+    },
+    { field: "last_name", headerName: <strong>Last Name</strong>, width: 130 },
+    { field: "email", headerName: <strong>Email</strong>, width: 180 },
+    {
+      field: "password",
+      headerName: <strong>Password</strong>,
+      type: "password",
+      width: 150,
+    },
     // { field: "birthday", headerName: "Birthday", width: 150 },
     // { field: "department", headerName: "Department", width: 150 },
-    { field: "role", headerName: "Role", width: 150 },
+    { field: "role", headerName: <strong>Role</strong>, width: 140 },
     {
       field: "status",
-      headerName: "Action",
-      width: 150,
+      headerName: <strong>Action</strong>,
+      width: 160,
       renderCell: (params) => {
         return (
           <div>

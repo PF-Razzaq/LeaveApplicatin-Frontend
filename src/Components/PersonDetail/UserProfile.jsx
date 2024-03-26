@@ -3,13 +3,10 @@ import axios from "axios";
 import { API_URL_LEAVE } from "../Api/api";
 import Header from "../Header/Header";
 import SidebarUser from "../Sidebar/SidebarUser";
-import Leave from "../Leave/Leave";
-import UserLeaveSection from "./UserLeaveSection";
-import "./User.css";
 import Footer from "../Footer/Footer";
 import PersonDetail from "../PersonDetail/PersonDetail";
 
-const User = () => {
+const UserProfile = (props) => {
   const [leaves, setLeaves] = useState([]);
 
   const getLeaves = async () => {
@@ -28,14 +25,13 @@ const User = () => {
   useEffect(() => {
     resetState();
   }, []);
-
   return (
     <>
       <div className="user">
         <Header className="user-header" />
-        <div className="d-flex text-center ">
+        <div className="d-flex text-center">
           <SidebarUser />
-          <UserLeaveSection className="user-leave-record" leaves={leaves} />
+          <PersonDetail className="user-leave-record" persondetail={leaves} />
         </div>
       </div>
       <div className="userfooter">
@@ -45,4 +41,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default UserProfile;

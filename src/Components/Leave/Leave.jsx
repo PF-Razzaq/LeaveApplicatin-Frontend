@@ -22,15 +22,27 @@ const Leave = (props) => {
   }, []);
 
   const columns = [
-    { field: "employee", headerName: "ID  ", width: 100 },
-    { field: "start_date", headerName: "Start Date", width: 170 },
-    { field: "end_date", headerName: "End Date", width: 170 },
-    { field: "days", headerName: "Days", width: 150 },
-    { field: "leave_type", headerName: "Leave Type", width: 150 },
-    { field: "reject_reason", headerName: "Reject Reason", width: 200 },
+    { field: "employee", headerName: <strong>ID</strong>, width: 100 },
+    {
+      field: "start_date",
+      headerName: <strong>Start Date</strong>,
+      width: 170,
+    },
+    { field: "end_date", headerName: <strong>End Date</strong>, width: 170 },
+    { field: "days", headerName: <strong>Days</strong>, width: 150 },
+    {
+      field: "leave_type",
+      headerName: <strong>Leave Type</strong>,
+      width: 150,
+    },
+    {
+      field: "reject_reason",
+      headerName: <strong>Reject Reason</strong>,
+      width: 200,
+    },
     {
       field: "status",
-      headerName: "Status",
+      headerName: <strong>Status</strong>,
       width: 130,
       renderCell: (params) => (
         <span>

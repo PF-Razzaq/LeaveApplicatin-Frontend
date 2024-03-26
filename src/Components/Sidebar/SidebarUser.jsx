@@ -3,6 +3,7 @@ import "./Sidebar.css";
 import { Zoom, toast } from "react-toastify";
 import { MdDashboard } from "react-icons/md";
 import { RiPagesLine } from "react-icons/ri";
+import { CgProfile } from "react-icons/cg";
 import { Button } from "reactstrap";
 import axios from "axios";
 import { API_URL } from "../Api/api";
@@ -58,10 +59,27 @@ const Sidebar = () => {
                 <RiPagesLine className="icon" />
                 <h4>Leave Section</h4>
               </div>
+              <div
+                className="leave"
+                onClick={() => {
+                  navigate("/userProfile");
+                }}
+              >
+                <CgProfile className="icon" />
+                <h4>Profile</h4>
+              </div>
             </main>
-            <div className="logout">
-              <div>Logged in as:</div>
-              <div>
+            <div className="logout" style={{ textAlign: "left" }}>
+              <div style={{ fontWeight: "bold", fontSize: "16px" }}>
+                Logged in as:
+              </div>
+              <div
+                style={{
+                  fontWeight: "bold",
+                  fontSize: "16px",
+                  textTransform: "uppercase",
+                }}
+              >
                 {getUser.first_name} {getUser.last_name}
               </div>
               <Button

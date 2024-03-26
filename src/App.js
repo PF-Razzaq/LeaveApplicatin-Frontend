@@ -14,6 +14,7 @@ import axios from "axios";
 import { API_URL } from "./index";
 import Item from "./Page/Item";
 import Cart from "./Page/Cart";
+import UserProfile from "./Components/PersonDetail/UserProfile";
 
 const App = (props) => {
   const [employees, setEmployees] = useState([]);
@@ -61,13 +62,13 @@ const App = (props) => {
                       path="/userleaverecord"
                       element={<UserLeaveRecord />}
                     />
+                    <Route path="/userProfile" element={<UserProfile />} />
                   </>
                 )}
               </>
             )}
             <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
-
         </Layout>
       </BrowserRouter>
     </>

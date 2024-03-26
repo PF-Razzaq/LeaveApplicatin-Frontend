@@ -5,11 +5,11 @@ import axios from "axios";
 import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 import { useNavigate } from "react-router-dom";
+import LeaveRequestedRecord from "./LeaveRequestedRecord";
 
 const LeaveRequested = () => {
   const navigate = useNavigate();
   const [leaveData, setLeaveData] = useState([]);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -24,12 +24,6 @@ const LeaveRequested = () => {
   }, []);
 
   const handleAction = async (id, newStatus, rejectionStatus) => {
-    console.log(
-      "id, newStatus, rejectionStatus",
-      id,
-      newStatus,
-      rejectionStatus
-    );
     try {
       const existingLeaveData = leaveData.find((data) => data.id === id);
       const statusUpdate = {
@@ -46,6 +40,12 @@ const LeaveRequested = () => {
 
       const updatedResponse = await axios.get(API_URL_LEAVE);
       setLeaveData(updatedResponse.data);
+      let updatedLeaveData = leaveData;
+      if (newStatus === 1 || newStatus === 2) {
+        updatedLeaveData = leaveData.filter((data) => data.id !== id);
+      }
+      setLeaveData(updatedLeaveData);
+      window.location.reload();
     } catch (error) {
       console.error("Error:", error.response || error.message || error);
     }
@@ -83,12 +83,18 @@ const LeaveRequested = () => {
                   {!leaveData || leaveData.length <= 0 ? (
                     <tr>
                       <td colSpan="7" align="center">
-                        <b>Ops, no one here yet</b>
+                        <strong>Ops, No Requested any leave</strong>
                       </td>
                     </tr>
                   ) : (
                     leaveData.map((leaveData) => (
-                      <tr key={leaveData.pk}>
+                      <tr
+                        key={leaveData.pk}
+                        style={{
+                          display:
+                            leaveData.status === 0 ? "table-row" : "none",
+                        }}
+                      >
                         <td>{leaveData.start_date}</td>
                         <td>{leaveData.end_date}</td>
                         <td>{leaveData.days}</td>
@@ -103,7 +109,7 @@ const LeaveRequested = () => {
                             <>
                               <Button
                                 variant="success"
-                                className="me-2"
+                                className="me-2 bg-success"
                                 onClick={() =>
                                   handleAction(leaveData.id, 1, null)
                                 }
@@ -111,6 +117,7 @@ const LeaveRequested = () => {
                                 Approve
                               </Button>
                               <Button
+                                className="me-2 bg-danger"
                                 variant="danger"
                                 onClick={() =>
                                   handleAction(leaveData.id, 2, null)
@@ -137,6 +144,7 @@ const LeaveRequested = () => {
               </Table>
             </Col>
           </div>
+          <LeaveRequestedRecord record={leaveData} />
         </Row>
       </div>
     </>
