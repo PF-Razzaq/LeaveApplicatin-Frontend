@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import ConfirmRemovalModal from "../ConfirmRemovalModal";
@@ -6,6 +6,11 @@ import NewEmployeeModal from "../NewEmployeeModal";
 import { Link } from "react-router-dom";
 
 const EmployeeList = (props) => {
+  const [editable, setEditable] = useState(false);
+
+  const toggleEditable = () => {
+    setEditable(!editable);
+  };
   const { employees } = props;
 
   const columns = [
@@ -20,8 +25,24 @@ const EmployeeList = (props) => {
     {
       field: "password",
       headerName: <strong>Password</strong>,
-      type: "password",
       width: 150,
+      renderCell: (params) => {
+        return (
+          <input
+            type={editable ? "text" : "password"}
+            value={params.value}
+            onDoubleClick={toggleEditable}
+            style={{
+              outline: "none",
+              border: "none",
+              backgroundColor: "transparent",
+              fontSize: "20px",
+            }}
+            title="Double Click to see the password"
+            readOnly
+          />
+        );
+      },
     },
     // { field: "birthday", headerName: "Birthday", width: 150 },
     // { field: "department", headerName: "Department", width: 150 },

@@ -25,6 +25,7 @@ const UserProfile = (props) => {
   useEffect(() => {
     resetState();
   }, []);
+
   return (
     <>
       <div className="user">

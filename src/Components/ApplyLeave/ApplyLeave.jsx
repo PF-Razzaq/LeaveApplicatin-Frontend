@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import { API_URL_LEAVE } from "../Api/api";
 import { Flip, Slide, toast } from "react-toastify";
@@ -44,18 +44,21 @@ const ApplyLeave = (props) => {
   const storedUser = localStorage.getItem("loggedInUser");
   const loggedInUser = storedUser ? JSON.parse(storedUser) : null;
   const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
   const handeDateChange = (date, fieldName) => {
-    setFormData({
-      ...formData,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [fieldName]: date,
-      days: calculateDays(formData.start_date, date),
-    });
+      days: calculateDays(prevFormData.start_date, date),
+    }));
   };
+
+  const memoizedFormData = useMemo(() => formData, [formData]);
 
   const calculateDays = (startDate, endDate) => {
     const days = Array.from(
@@ -99,6 +102,8 @@ const ApplyLeave = (props) => {
     return value === "" ? "" : value;
   };
 
+  console.log("Re-render this page");
+
   const leaveOptions = ["Sick", "Casual", "Annual"];
   return (
     <Container>
@@ -112,10 +117,9 @@ const ApplyLeave = (props) => {
                 name="employee"
                 maxLength={3}
                 id="employee"
-                value={defaultIfEmpty(formData.employee)}
-                onChange={(e) => {
-                  handeDateChange(e.target.value, "employee");
-                }}
+                placeholder="Please Enter Your ID"
+                value={defaultIfEmpty(memoizedFormData.employee)}
+                onChange={handleChange}
                 onInput={(e) => {
                   e.target.value = e.target.value.replace(/[^0-9-]/g, "");
                 }}
@@ -129,6 +133,7 @@ const ApplyLeave = (props) => {
               <Input
                 type="date"
                 name="start_date"
+                placeholder="Please Enter Leave Start Date"
                 id="start_date"
                 value={defaultIfEmpty(formData.start_date)}
                 onChange={(e) => {
@@ -143,6 +148,7 @@ const ApplyLeave = (props) => {
               <Input
                 type="date"
                 name="end_date"
+                placeholder="Please Enter Leave End Date"
                 id="end_date"
                 value={defaultIfEmpty(formData.end_date)}
                 onChange={(e) => {
@@ -193,6 +199,7 @@ const ApplyLeave = (props) => {
                 type="text"
                 name="reason"
                 id="reason"
+                placeholder="Please Explain a Reason "
                 value={defaultIfEmpty(formData.reason)}
                 onChange={handleChange}
               />

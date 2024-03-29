@@ -76,6 +76,7 @@ const Sidebar = () => {
               )}
             </main>
             <div className="logout">
+              <hr style={{ width: "60%" }} />
               <div
                 style={{
                   fontWeight: "bold",
