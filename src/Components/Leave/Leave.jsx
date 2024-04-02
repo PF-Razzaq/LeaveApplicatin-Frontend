@@ -77,7 +77,6 @@ const Leave = (props) => {
       style={{ height: 380, width: "90%", margin: "50px auto" }}
       className="userdatagrid"
     >
-      <div>{approvedDays}</div>
       <DataGrid
         rows={leaveData.filter((leave) => leave.employee === loggedInUser.id)}
         columns={columns}

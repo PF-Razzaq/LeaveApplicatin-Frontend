@@ -34,8 +34,12 @@ const User = () => {
       <div className="user">
         <Header className="user-header" />
         <div className="d-flex text-center ">
-          <SidebarUser />
-          <UserLeaveSection className="user-leave-record" leaves={leaves} />
+          <div className="usersidebar-section">
+            <SidebarUser />
+          </div>
+          <div>
+            <UserLeaveSection className="user-leave-record" leaves={leaves} />
+          </div>
         </div>
       </div>
       <div className="userfooter">

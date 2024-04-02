@@ -21,6 +21,7 @@ const ApplyLeave = (props) => {
     employee: "",
     start_date: "",
     end_date: "",
+    leave_entries: "",
     days: "",
     leave_type: "",
     reason: "",
@@ -28,13 +29,22 @@ const ApplyLeave = (props) => {
 
   useEffect(() => {
     if (props.apply_leave) {
-      const { id, employee, start_date, end_date, days, leave_type, reason } =
-        props.apply_leave;
+      const {
+        id,
+        employee,
+        start_date,
+        end_date,
+        leave_entries,
+        days,
+        leave_type,
+        reason,
+      } = props.apply_leave;
       setFormData({
         id,
         employee,
         start_date,
         end_date,
+        leave_entries,
         days,
         leave_type,
         reason,
@@ -77,6 +87,33 @@ const ApplyLeave = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      let days = formData.days;
+
+      if (formData.leave_entries === "Full Leave") {
+        days = calculateDays(formData.start_date, formData.end_date);
+        const calculateDays = (startDate, endDate) => {
+          const days = Array.from(
+            {
+              length:
+                (new Date(endDate) - new Date(startDate)) /
+                  (1000 * 60 * 60 * 24) +
+                1,
+            },
+            (_, index) => {
+              const currentDate = new Date(startDate);
+              currentDate.setDate(currentDate.getDate() + index);
+              return currentDate.getDay() !== 6 && currentDate.getDay() !== 0
+                ? 1
+                : 0;
+            }
+          ).reduce((acc, day) => acc + day, 0);
+          return days;
+        };
+      } else if (formData.leave_entries === "Half Leave") {
+        days = 0.5;
+      }
+
+      setFormData((prevFormData) => ({ ...prevFormData, days: days }));
       await axios.post(API_URL_LEAVE, formData);
       toast.success(`Successfully Added Leave`, {
         position: "top-center",
@@ -105,6 +142,7 @@ const ApplyLeave = (props) => {
   console.log("Re-render this page");
 
   const leaveOptions = ["Sick", "Casual", "Annual"];
+  const leaveentries = ["Full Leave", "Half Leave"];
   return (
     <Container>
       <Form onSubmit={handleSubmit} method="post">
@@ -159,6 +197,27 @@ const ApplyLeave = (props) => {
           </Col>
           <Col md={12}>
             <FormGroup>
+              <Label for="leave_entries">Leave Entries</Label>
+              <Input
+                type="select"
+                name="leave_entries"
+                id="leave_entries"
+                value={defaultIfEmpty(formData.leave_entries)}
+                onChange={handleChange}
+              >
+                <option value="" disabled>
+                  Select Leave Entries
+                </option>
+                {leaveentries.map((option, index) => (
+                  <option key={index} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </Input>
+            </FormGroup>
+          </Col>
+          <Col md={12}>
+            <FormGroup>
               <Label for="days">Days</Label>
               <Input
                 type="text"
@@ -188,21 +247,6 @@ const ApplyLeave = (props) => {
                   </option>
                 ))}
               </Input>
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={12}>
-            <FormGroup>
-              <Label for="reason">Reason</Label>
-              <Input
-                type="text"
-                name="reason"
-                id="reason"
-                placeholder="Please Explain a Reason "
-                value={defaultIfEmpty(formData.reason)}
-                onChange={handleChange}
-              />
             </FormGroup>
           </Col>
         </Row>

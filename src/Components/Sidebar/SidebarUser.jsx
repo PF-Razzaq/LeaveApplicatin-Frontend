@@ -8,6 +8,7 @@ import { Button } from "reactstrap";
 import axios from "axios";
 import { API_URL } from "../Api/api";
 import { useNavigate } from "react-router-dom";
+import { GrLogout } from "react-icons/gr";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ const Sidebar = () => {
                 }}
               >
                 <MdDashboard className="icon" />
-                <h4>Dashboard</h4>
+                <h4 className="responsive-sidebar">Dashboard</h4>
               </div>
               <div
                 className="leave"
@@ -57,7 +58,7 @@ const Sidebar = () => {
                 }}
               >
                 <RiPagesLine className="icon" />
-                <h4>Leave Section</h4>
+                <h4 className="responsive-sidebar">Leave Section</h4>
               </div>
               <div
                 className="leave"
@@ -66,13 +67,16 @@ const Sidebar = () => {
                 }}
               >
                 <CgProfile className="icon" />
-                <h4>Profile</h4>
+                <h4 className="responsive-sidebar">Profile</h4>
               </div>
             </main>
             <div className="logout" style={{ textAlign: "left" }}>
               <hr style={{ width: "60%" }} />
 
-              <div style={{ fontWeight: "bold", fontSize: "16px" }}>
+              <div
+                style={{ fontWeight: "bold", fontSize: "16px" }}
+                className="responsive-sidebar"
+              >
                 Logged in as:
               </div>
               <div
@@ -81,10 +85,15 @@ const Sidebar = () => {
                   fontSize: "16px",
                   textTransform: "uppercase",
                 }}
+                className="responsive-sidebar"
               >
                 {getUser.first_name} {getUser.last_name}
               </div>
+              <div className="responsive-logout-btn">
+                <GrLogout />
+              </div>
               <Button
+                className="responsive-sidebar"
                 color="danger"
                 onClick={() => {
                   toast.warn(`Logging Out`, {

@@ -37,7 +37,6 @@ const App = (props) => {
   return (
     <>
       <ToastContainer />
-
       <BrowserRouter>
         <Layout>
           <Routes>
