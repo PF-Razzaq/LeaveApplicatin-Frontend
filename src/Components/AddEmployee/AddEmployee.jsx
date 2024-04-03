@@ -22,7 +22,6 @@ const AddEmployee = (props) => {
     birthday: "",
     department: "",
     role: "",
-    // employee_id: "",
   });
 
   useEffect(() => {
@@ -36,7 +35,6 @@ const AddEmployee = (props) => {
         birthday,
         department,
         role,
-        // employee_id,
       } = props.employee;
       setFormData({
         id,
@@ -47,7 +45,6 @@ const AddEmployee = (props) => {
         birthday,
         department,
         role,
-        // employee_id,
       });
     }
   }, [props.employee]);

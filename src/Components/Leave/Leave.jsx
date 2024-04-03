@@ -15,12 +15,11 @@ const Leave = (props) => {
         const response = await axios.get(API_URL_LEAVE);
         setLeaveData(response.data);
 
-        // Calculate and log total days including only approved leaves
         const approvedLeaves = response.data.filter(
           (leave) => leave.employee === loggedInUser.id && leave.status === 1
         );
         const totalApprovedDays = approvedLeaves.reduce(
-          (total, leave) => total + leave.days,
+          (total, leave) => parseFloat(total) + parseFloat(leave.days),
           0
         );
         setApprovedDays(totalApprovedDays);

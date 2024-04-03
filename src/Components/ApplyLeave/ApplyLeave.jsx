@@ -81,39 +81,40 @@ const ApplyLeave = (props) => {
         currentDate.setDate(currentDate.getDate() + index);
         return currentDate.getDay() !== 6 && currentDate.getDay() !== 0 ? 1 : 0;
       }
-    ).reduce((acc, day) => acc + day, 0);
-    return days;
+    ).reduce((acc, day) => Number(acc) + Number(day), 0);
+    const daysNumber = Number(days);
+    return daysNumber;
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let days = formData.days;
+      //   let days = formData.days;
 
-      if (formData.leave_entries === "Full Leave") {
-        days = calculateDays(formData.start_date, formData.end_date);
-        const calculateDays = (startDate, endDate) => {
-          const days = Array.from(
-            {
-              length:
-                (new Date(endDate) - new Date(startDate)) /
-                  (1000 * 60 * 60 * 24) +
-                1,
-            },
-            (_, index) => {
-              const currentDate = new Date(startDate);
-              currentDate.setDate(currentDate.getDate() + index);
-              return currentDate.getDay() !== 6 && currentDate.getDay() !== 0
-                ? 1
-                : 0;
-            }
-          ).reduce((acc, day) => acc + day, 0);
-          return days;
-        };
-      } else if (formData.leave_entries === "Half Leave") {
-        days = 0.5;
-      }
+      //   if (formData.leave_entries === "Full Leave") {
+      //     days = calculateDays(formData.start_date, formData.end_date);
+      //     const calculateDays = (startDate, endDate) => {
+      //       const days = Array.from(
+      //         {
+      //           length:
+      //             (new Date(endDate) - new Date(startDate)) /
+      //               (1000 * 60 * 60 * 24) +
+      //             1,
+      //         },
+      //         (_, index) => {
+      //           const currentDate = new Date(startDate);
+      //           currentDate.setDate(currentDate.getDate() + index);
+      //           return currentDate.getDay() !== 6 && currentDate.getDay() !== 0
+      //             ? 1
+      //             : 0;
+      //         }
+      //       ).reduce((acc, day) => acc + day, 0);
+      //       return days;
+      //     };
+      //   } else if (formData.leave_entries === "Half Leave") {
+      //     days = 0.5;
+      //   }
 
-      setFormData((prevFormData) => ({ ...prevFormData, days: days }));
+      // setFormData((prevFormData) => ({ ...prevFormData, days: days }));
       await axios.post(API_URL_LEAVE, formData);
       toast.success(`Successfully Added Leave`, {
         position: "top-center",
@@ -138,9 +139,6 @@ const ApplyLeave = (props) => {
   const defaultIfEmpty = (value) => {
     return value === "" ? "" : value;
   };
-
-  console.log("Re-render this page");
-
   const leaveOptions = ["Sick", "Casual", "Annual"];
   const leaveentries = ["Full Leave", "Half Leave"];
   return (
@@ -223,7 +221,7 @@ const ApplyLeave = (props) => {
                 type="text"
                 name="days"
                 id="days"
-                value={formData.days}
+                value={parseInt(formData.days)}
                 readOnly
               />
             </FormGroup>
