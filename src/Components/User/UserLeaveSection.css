@@ -1,10 +1,10 @@
 @media screen and (min-width: 425px) and (max-width: 740px) {
   .my-div {
-    width: 85% !important;
+    width: 251px !important;
   }
 }
 @media screen and (max-width: 425px) {
   .my-div {
-    width: 100% !important;
+    width: 235px !important;
   }
 }

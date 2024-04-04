@@ -112,7 +112,7 @@ const PersonDetail = (props) => {
                     borderRadius: "4px",
                   }}
                 >
-                  {leavesDays}
+                  {leavesDays || 0}
                 </h4>
               </div>
               <div className="record-section">

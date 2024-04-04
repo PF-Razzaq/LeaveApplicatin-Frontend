@@ -9,6 +9,7 @@ import { MdPeopleAlt } from "react-icons/md";
 import axios from "axios";
 import { API_URL } from "../Api/api";
 import { useNavigate } from "react-router-dom";
+import { GrLogout } from "react-icons/gr";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -50,12 +51,13 @@ const Sidebar = () => {
                   navigate("/home");
                 }}
               >
-                <MdDashboard className="icon" />
-                <h4>Dashboard</h4>
+                <MdDashboard className="icon" title="Dashboard" />
+                <h4 className="responsive-sidebar">Dashboard</h4>
               </div>
               <div className="leave">
-                <RiPagesLine className="icon" />
+                <RiPagesLine className="icon" title="Leave Section" />
                 <h4
+                  className="responsive-sidebar"
                   onClick={() => {
                     navigate("/leaverequested");
                   }}
@@ -70,8 +72,8 @@ const Sidebar = () => {
                     navigate("/userrecord");
                   }}
                 >
-                  <MdPeopleAlt className="icon" />
-                  <h4>Employee Section</h4>
+                  <MdPeopleAlt className="icon" title="Employee Section" />
+                  <h4 className="responsive-sidebar">Employee Section</h4>
                 </div>
               )}
             </main>
@@ -81,6 +83,7 @@ const Sidebar = () => {
                 style={{
                   fontWeight: "bold",
                 }}
+                className="responsive-sidebar"
               >
                 Logged in as:
               </div>
@@ -89,10 +92,33 @@ const Sidebar = () => {
                   fontWeight: "bold",
                   textTransform: "uppercase",
                 }}
+                className="responsive-sidebar"
               >
                 {getAdmin.first_name} {getAdmin.last_name}
               </div>
+              <div className="responsive-logout-btn">
+                <GrLogout
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    toast.warn(`Logging Out`, {
+                      position: "top-center",
+                      autoClose: 1000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "light",
+                      transition: Zoom,
+                    });
+                    localStorage.removeItem("allEmployees");
+                    localStorage.removeItem("loggedInUser");
+                    navigate("/");
+                  }}
+                />
+              </div>
               <Button
+                className="responsive-sidebar"
                 color="danger"
                 onClick={() => {
                   toast.warn(`Logging Out`, {

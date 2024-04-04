@@ -2,16 +2,7 @@
   .user-leave-record {
     width: 300px;
   }
-  .userfooter {
-    display: none;
-  }
 }
-@media screen and (max-width: 425px) {
-  .userfooter {
-    display: none;
-  }
-}
-
 .user {
   overflow: hidden;
 }

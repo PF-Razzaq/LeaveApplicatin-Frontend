@@ -15,6 +15,7 @@ import { API_URL } from "./index";
 import Item from "./Page/Item";
 import Cart from "./Page/Cart";
 import UserProfile from "./Components/PersonDetail/UserProfile";
+import ArrayQuestion from "./Page/ArrayQuestion";
 
 const App = (props) => {
   const [employees, setEmployees] = useState([]);

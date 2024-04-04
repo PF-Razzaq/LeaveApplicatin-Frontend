@@ -48,7 +48,7 @@ const Sidebar = () => {
                   navigate("/user");
                 }}
               >
-                <MdDashboard className="icon" />
+                <MdDashboard className="icon" title="Dashboard" />
                 <h4 className="responsive-sidebar">Dashboard</h4>
               </div>
               <div
@@ -57,7 +57,7 @@ const Sidebar = () => {
                   navigate("/userleaverecord");
                 }}
               >
-                <RiPagesLine className="icon" />
+                <RiPagesLine className="icon" title="Leave Section" />
                 <h4 className="responsive-sidebar">Leave Section</h4>
               </div>
               <div
@@ -66,7 +66,7 @@ const Sidebar = () => {
                   navigate("/userProfile");
                 }}
               >
-                <CgProfile className="icon" />
+                <CgProfile className="icon" title="Profile" />
                 <h4 className="responsive-sidebar">Profile</h4>
               </div>
             </main>
@@ -90,7 +90,26 @@ const Sidebar = () => {
                 {getUser.first_name} {getUser.last_name}
               </div>
               <div className="responsive-logout-btn">
-                <GrLogout />
+                <GrLogout
+                  title="Logout"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    toast.warn(`Logging Out`, {
+                      position: "top-center",
+                      autoClose: 1000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                      theme: "light",
+                      transition: Zoom,
+                    });
+                    localStorage.removeItem("allEmployees");
+                    localStorage.removeItem("loggedInUser");
+                    navigate("/");
+                  }}
+                />
               </div>
               <Button
                 className="responsive-sidebar"
