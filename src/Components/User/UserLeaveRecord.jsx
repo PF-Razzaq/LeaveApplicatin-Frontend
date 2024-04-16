@@ -33,7 +33,7 @@ const UserLeaveRecord = (props) => {
     <>
       <Header />
       <div className="d-flex" style={{ overflow: "hidden" }}>
-        <div className="usersidebar">
+        <div>
           <SidebarUser />
         </div>
         <Container md={12}>

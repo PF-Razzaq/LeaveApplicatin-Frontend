@@ -1,0 +1,43 @@
+.todo-header {
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.addinput {
+  outline: none;
+  padding: 0 10px;
+  caret-color: rgb(255, 251, 0);
+  ::placeholder {
+    color: brown;
+  }
+}
+
+.todo-item {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.addbtn {
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  background-color: aquamarine;
+  padding: 5px 30px;
+}
+.todo-list:first-child {
+  margin-top: 40px;
+}
+.todo-list {
+  border: 1px solid black;
+  width: 310px;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  margin: 10px auto;
+}

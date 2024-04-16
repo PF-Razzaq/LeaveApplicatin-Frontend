@@ -7,15 +7,13 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import User from "./Components/User/User";
 import UserRecord from "./Components/User/UserRecord";
 import UserLeaveRecord from "./Components/User/UserLeaveRecord";
-import Footer from "./Components/Footer/Footer";
 import Layout from "./Components/Layout";
 import LeaveRequested from "./Components/LeaveRequested/LeaveRequested";
 import axios from "axios";
 import { API_URL } from "./index";
-import Item from "./Page/Item";
-import Cart from "./Page/Cart";
 import UserProfile from "./Components/PersonDetail/UserProfile";
-import ArrayQuestion from "./Page/ArrayQuestion";
+import Todo from "./Page/Todo/Todo";
+import WheaterApp from "./Page/WheaterApp/WheaterApp";
 
 const App = (props) => {
   const [employees, setEmployees] = useState([]);
@@ -41,6 +39,8 @@ const App = (props) => {
       <BrowserRouter>
         <Layout>
           <Routes>
+            {/* <Route path="/todo" element={<Todo />} /> */}
+            <Route path="/weatherApp" element={<WheaterApp />} />
             <Route path="/login" element={<Login />} />
             {JSON.parse(localStorage.getItem("allEmployees")) && (
               <>
