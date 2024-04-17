@@ -40,7 +40,7 @@ const App = (props) => {
         <Layout>
           <Routes>
             {/* <Route path="/todo" element={<Todo />} /> */}
-            <Route path="/weatherApp" element={<WheaterApp />} />
+            {/* <Route path="/weatherApp" element={<WheaterApp />} /> */}
             <Route path="/login" element={<Login />} />
             {JSON.parse(localStorage.getItem("allEmployees")) && (
               <>
